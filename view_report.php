@@ -266,6 +266,7 @@ function format_remark_with_image($remark_string) {
                 <p><strong>Date Created</strong> <?= date('d M Y, h:i A', strtotime($task['created_at'])) ?></p>
                 <p><strong>Status</strong> <?= htmlspecialchars($task['status']) ?></p>
                 <p><strong>Inspected By</strong> Technician (ID: <?= htmlspecialchars($task['tech_id'] ?? 'Unknown') ?>)</p>
+                <p><strong>Date Inspected</strong><?= !empty($task['inspection_date'])? date('d M Y, h:i A', strtotime($task['inspection_date'])): 'N/A' ?></p>
             </div>
         </div>
 
