@@ -177,7 +177,7 @@ ob_start();
     <title>Service Report Task #<?= $task_id ?></title>
     <style>
         /* Force zero margins on the page to allow edge-to-edge bleeding */
-        @page { 135px 40px 40px 40px; }
+        @page { margin: 135px 40px 40px 40px; }
         
         body { font-family: 'Helvetica', 'Arial', sans-serif; font-size: 10px; color: #111827; margin: 0; padding: 0; }
         
@@ -353,453 +353,453 @@ ob_start();
 </head>
 <body>
 
-<?php if (!empty($watermark_base64)): ?>
-<div id="watermark-center">
-    <img src="<?php echo $watermark_base64; ?>" alt="watermark center">
-</div>
-<div id="watermark-footer">
-    <img src="<?php echo $watermark_base64; ?>" alt="watermark footer">
-</div>
-<?php endif; ?>
+    <?php if (!empty($watermark_base64)): ?>
+    <div id="watermark-center">
+        <img src="<?php echo $watermark_base64; ?>" alt="watermark center">
+    </div>
+    <div id="watermark-footer">
+        <img src="<?php echo $watermark_base64; ?>" alt="watermark footer">
+    </div>
+    <?php endif; ?>
 
-<div class="letterhead-container">
-    <table class="letterhead-table">
-        <tr>
-            <td class="lh-logo-cell">
-                <?php if (!empty($logo_base64)): ?>
-                    <img src="<?php echo $logo_base64; ?>" alt="LTA Logo" class="lh-logo">
-                <?php else: ?>
-                    <div style="color: #ffffff; font-size: 32px; font-weight: bold; padding: 10px 0;">
-                        LTA
-                    </div>
-                <?php endif; ?>
-            </td>
-            <td class="lh-text-cell">
-                <div class="lh-title">LTA SERVICES SDN. BHD. <span class="lh-reg">(705567-V)</span></div>
-                <div class="lh-details">
-                    2<sup>nd</sup> Floor, SL113, Plot 24, Gala City, Jalan Tun Jugah, 93350 Kuching, Sarawak.<br>
-                    Tel: 082-265761<br>
-                    Email: lta.firemaintenance@gmail.com<br>
-                    Website: www.ltaservicessdnbhd.com
-                </div>
-            </td>
-        </tr>
-    </table>
-</div>
-    
-    <div class="lh-trim-line"></div>
-
-    <div class="content-wrapper">
-
-        <div class="report-header">
-            <h1>MAINTENANCE SERVICE REPORT</h1>
-            <div class="sys-title">SYSTEMS INCLUDED:</div>
-            <div class="sys-list">
-                <?php 
-                    $included = array_column($report_data, 'system_name');
-                    echo !empty($included) ? implode(' &bull; ', array_map('htmlspecialchars', $included)) : 'None';
-                ?>
-            </div>
-        </div>
-
-        <table class="task-meta">
+    <div class="letterhead-container">
+        <table class="letterhead-table">
             <tr>
-                <td style="border-right: 1px solid #e5e7eb;">
-                    <div><strong>Task ID:</strong> #<?= str_pad($task['task_id'], 5, '0', STR_PAD_LEFT) ?></div>
-                    <div><strong>Company:</strong> <?= htmlspecialchars($task['company_name'] ?? 'N/A') ?></div>
-                    <div><strong>Building:</strong> <?= htmlspecialchars($task['building_name'] ?? 'N/A') ?></div>
+                <td class="lh-logo-cell">
+                    <?php if (!empty($logo_base64)): ?>
+                        <img src="<?php echo $logo_base64; ?>" alt="LTA Logo" class="lh-logo">
+                    <?php else: ?>
+                        <div style="color: #ffffff; font-size: 32px; font-weight: bold; padding: 10px 0;">
+                            LTA
+                        </div>
+                    <?php endif; ?>
                 </td>
-                <td>
-                    <div><strong>Date Created:</strong> <?= date('d M Y, h:i A', strtotime($task['created_at'])) ?></div>
-                    <div><strong>Status:</strong> <span style="color: #C41E3A; font-weight: bold;"><?= htmlspecialchars($task['status']) ?></span></div>
-                    <div><strong>Inspected By:</strong> 
-                        <?php 
-                            echo !empty($task['tech_sign_name']) ? htmlspecialchars(strtoupper($task['tech_sign_name'])) : 'Technician (ID: ' . htmlspecialchars($task['tech_id'] ?? 'Unknown') . ')'; 
-                        ?>
-                    </div>
-                    <div>
-                        <strong>Date Inspected:</strong>
-                        <?= !empty($task['inspection_date'])
-                            ? date('d M Y, h:i A', strtotime($task['inspection_date']))
-                            : 'N/A' ?>
+                <td class="lh-text-cell">
+                    <div class="lh-title">LTA SERVICES SDN. BHD. <span class="lh-reg">(705567-V)</span></div>
+                    <div class="lh-details">
+                        2<sup>nd</sup> Floor, SL113, Plot 24, Gala City, Jalan Tun Jugah, 93350 Kuching, Sarawak.<br>
+                        Tel: 082-265761<br>
+                        Email: lta.firemaintenance@gmail.com<br>
+                        Website: www.ltaservicessdnbhd.com
                     </div>
                 </td>
             </tr>
         </table>
+    </div>
+        
+        <div class="lh-trim-line"></div>
 
-        <?php if (empty($report_data)): ?>
-            <div style="text-align:center; padding: 40px; color: #6b7280; font-style: italic; border: 1px solid #e5e7eb; background: #f9fafb; border-radius: 6px;">No completed checklist items found for this task. All items marked as N/A have been filtered out.</div>
-        <?php else: ?>
-            
-            <?php foreach ($report_data as $table => $table_data): ?>
-                <?php 
-                $system_name = $table_data['system_name'];
-                foreach ($table_data['submissions'] as $sub_idx => $sections): 
-                    $loc_label = "";
-                    if (isset($sections['PANEL PROFILE'])) {
-                        foreach ($sections['PANEL PROFILE'] as $item) {
-                            if (!empty($item['location_floor'])) {
-                                $loc_label = " - " . strtoupper($item['location_floor']);
-                                break;
+        <div class="content-wrapper">
+
+            <div class="report-header">
+                <h1>MAINTENANCE SERVICE REPORT</h1>
+                <div class="sys-title">SYSTEMS INCLUDED:</div>
+                <div class="sys-list">
+                    <?php 
+                        $included = array_column($report_data, 'system_name');
+                        echo !empty($included) ? implode(' &bull; ', array_map('htmlspecialchars', $included)) : 'None';
+                    ?>
+                </div>
+            </div>
+
+            <table class="task-meta">
+                <tr>
+                    <td style="border-right: 1px solid #e5e7eb;">
+                        <div><strong>Task ID:</strong> #<?= str_pad($task['task_id'], 5, '0', STR_PAD_LEFT) ?></div>
+                        <div><strong>Company:</strong> <?= htmlspecialchars($task['company_name'] ?? 'N/A') ?></div>
+                        <div><strong>Building:</strong> <?= htmlspecialchars($task['building_name'] ?? 'N/A') ?></div>
+                    </td>
+                    <td>
+                        <div><strong>Date Created:</strong> <?= date('d M Y, h:i A', strtotime($task['created_at'])) ?></div>
+                        <div><strong>Status:</strong> <span style="color: #C41E3A; font-weight: bold;"><?= htmlspecialchars($task['status']) ?></span></div>
+                        <div><strong>Inspected By:</strong> 
+                            <?php 
+                                echo !empty($task['tech_sign_name']) ? htmlspecialchars(strtoupper($task['tech_sign_name'])) : 'Technician (ID: ' . htmlspecialchars($task['tech_id'] ?? 'Unknown') . ')'; 
+                            ?>
+                        </div>
+                        <div>
+                            <strong>Date Inspected:</strong>
+                            <?= !empty($task['inspection_date'])
+                                ? date('d M Y, h:i A', strtotime($task['inspection_date']))
+                                : 'N/A' ?>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <?php if (empty($report_data)): ?>
+                <div style="text-align:center; padding: 40px; color: #6b7280; font-style: italic; border: 1px solid #e5e7eb; background: #f9fafb; border-radius: 6px;">No completed checklist items found for this task. All items marked as N/A have been filtered out.</div>
+            <?php else: ?>
+                
+                <?php foreach ($report_data as $table => $table_data): ?>
+                    <?php 
+                    $system_name = $table_data['system_name'];
+                    foreach ($table_data['submissions'] as $sub_idx => $sections): 
+                        $loc_label = "";
+                        if (isset($sections['PANEL PROFILE'])) {
+                            foreach ($sections['PANEL PROFILE'] as $item) {
+                                if (!empty($item['location_floor'])) {
+                                    $loc_label = " - " . strtoupper($item['location_floor']);
+                                    break;
+                                }
                             }
                         }
-                    }
-                    if (empty($loc_label) && count($table_data['submissions']) > 1) {
-                        $loc_label = " - SUBMISSION " . ($sub_idx + 1);
-                    }
-                ?>
-                    
-                    <div class="system-separator"><?= htmlspecialchars($system_name) ?><?= htmlspecialchars($loc_label) ?></div>
-
-                    <?php foreach ($sections as $section_name => $items_keyed): ?>
-                        <?php $rows = array_values($items_keyed); ?>
+                        if (empty($loc_label) && count($table_data['submissions']) > 1) {
+                            $loc_label = " - SUBMISSION " . ($sub_idx + 1);
+                        }
+                    ?>
                         
-                        <?php if ($section_name === 'PANEL PROFILE'): ?>
-                            <?php if (strpos($table, 'riser') !== false): ?>
+                        <div class="system-separator"><?= htmlspecialchars($system_name) ?><?= htmlspecialchars($loc_label) ?></div>
+
+                        <?php foreach ($sections as $section_name => $items_keyed): ?>
+                            <?php $rows = array_values($items_keyed); ?>
+                            
+                            <?php if ($section_name === 'PANEL PROFILE'): ?>
+                                <?php if (strpos($table, 'riser') !== false): ?>
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr><th colspan="4" class="section-header"><?= strtoupper($system_name) ?></th></tr>
+                                            <tr><th width="10%">BIL</th><th width="40%" style="text-align:left;">LOCATION</th><th width="30%" style="text-align:left;">STACK</th><th width="20%" style="text-align:left;">NO. OF STACK</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($rows as $row): ?>
+                                            <tr>
+                                                <td class="center bold"><?= htmlspecialchars($row['item_bil']) ?></td>
+                                                <td><?= htmlspecialchars($row['location_floor'] ?: '-') ?></td>
+                                                <td><?= htmlspecialchars($row['panel_type'] ?: '-') ?></td>
+                                                <td><?= htmlspecialchars($row['panel_qty'] ?: '-') ?></td>
+                                            </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                <?php elseif (strpos($table, 'suppression') !== false || $table === 'wet_chemical_system'): ?>
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr><th colspan="4" class="section-header"><?= strtoupper($system_name) ?></th></tr>
+                                            <tr><th colspan="4" class="sub-header"><?= strtoupper($system_name) ?></th></tr>
+                                            <tr><th width="10%">BIL</th><th width="40%" style="text-align:left;">LOCATION/ROOM</th><th width="25%" style="text-align:left;">CYLINDER CAPACITY (KG)</th><th width="25%" style="text-align:left;">QUANTITY OF CYLINDER</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($rows as $row): ?>
+                                            <tr>
+                                                <td class="center bold"><?= htmlspecialchars($row['item_bil']) ?></td>
+                                                <td><?= htmlspecialchars($row['location_floor'] ?: '-') ?></td>
+                                                <td><?= htmlspecialchars($row['panel_type'] ?: '-') ?></td>
+                                                <td><?= htmlspecialchars($row['panel_qty'] ?: '-') ?></td>
+                                            </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                <?php else: ?>
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr><th colspan="7" class="section-header"><?= strtoupper($system_name) ?> CONTROL PANEL PROFILE</th></tr>
+                                            <tr><th width="5%">BIL</th><th width="20%" style="text-align:left;">PANEL PROFILE</th><th width="15%" style="text-align:left;">TYPE OF PANEL</th><th width="15%" style="text-align:left;">BRAND OF PANEL</th><th width="12%" style="text-align:left;">MODEL</th><th width="10%">QTY/ZONE</th><th width="23%" style="text-align:left;">LOCATION</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($rows as $row): ?>
+                                            <tr>
+                                                <td class="center bold"><?= htmlspecialchars($row['item_bil']) ?></td>
+                                                <td class="bold"><?= htmlspecialchars($row['description']) ?></td>
+                                                <td><?= htmlspecialchars($row['panel_type'] ?: '-') ?></td>
+                                                <td><?= htmlspecialchars($row['panel_brand'] ?: '-') ?></td>
+                                                <td><?= htmlspecialchars($row['panel_model'] ?: '-') ?></td>
+                                                <td class="center"><?= htmlspecialchars($row['panel_qty'] ?: '-') ?></td>
+                                                <td><?= htmlspecialchars($row['location_floor'] ?: '-') ?></td>
+                                            </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                <?php endif; ?>
+
+                            <?php elseif ($section_name === 'SYSTEM INFO'): ?>
                                 <table class="data-table">
                                     <thead>
-                                        <tr><th colspan="4" class="section-header"><?= strtoupper($system_name) ?></th></tr>
-                                        <tr><th width="10%">BIL</th><th width="40%" style="text-align:left;">LOCATION</th><th width="30%" style="text-align:left;">STACK</th><th width="20%" style="text-align:left;">NO. OF STACK</th></tr>
+                                        <tr>
+                                            <th colspan="4" class="section-header">FIRE SUPPRESSION SYSTEM PANEL & CYLINDER</th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="4" class="sub-header"><?= strtoupper($system_name) ?></th>
+                                        </tr>
+                                        <tr>
+                                            <th width="8%">BIL</th>
+                                            <th width="42%" style="text-align:left;">DESCRIPTION</th>
+                                            <th width="15%" style="text-align:center;">STATUS</th>
+                                            <th width="35%" style="text-align:left;">REMARKS & PHOTOS</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                         <?php foreach ($rows as $row): ?>
                                         <tr>
                                             <td class="center bold"><?= htmlspecialchars($row['item_bil']) ?></td>
-                                            <td><?= htmlspecialchars($row['location_floor'] ?: '-') ?></td>
-                                            <td><?= htmlspecialchars($row['panel_type'] ?: '-') ?></td>
-                                            <td><?= htmlspecialchars($row['panel_qty'] ?: '-') ?></td>
+                                            <td>
+                                                <strong><?= htmlspecialchars($row['description'] ?: '-') ?></strong>
+                                                <?php if (!empty($row['location_floor']) && $row['location_floor'] !== '-'): ?>
+                                                    <br><span style="font-size: 8px; color: #6b7280;">Location: <?= htmlspecialchars($row['location_floor']) ?></span>
+                                                <?php endif; ?>
+                                                <?php if (!empty($row['panel_type']) && $row['panel_type'] !== '-'): ?>
+                                                    <br><span style="font-size: 8px; color: #6b7280;">Type: <?= htmlspecialchars($row['panel_type']) ?></span>
+                                                <?php endif; ?>
+                                                <?php if (!empty($row['panel_brand']) && $row['panel_brand'] !== '-'): ?>
+                                                    <br><span style="font-size: 8px; color: #6b7280;">Brand: <?= htmlspecialchars($row['panel_brand']) ?></span>
+                                                <?php endif; ?>
+                                                <?php if (!empty($row['panel_model']) && $row['panel_model'] !== '-'): ?>
+                                                    <br><span style="font-size: 8px; color: #6b7280;">Model: <?= htmlspecialchars($row['panel_model']) ?></span>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td class="center">
+                                                <?php if ($row['checklist'] === 'Done'): ?>
+                                                    <span style="color: #059669; font-weight: bold;">[ DONE ]</span>
+                                                <?php elseif ($row['checklist'] === 'N/A'): ?>
+                                                    <span style="color: #dc2626; font-weight: bold;">[ N/A ]</span>
+                                                <?php else: ?>
+                                                    <?= htmlspecialchars($row['checklist'] ?: '-') ?>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td><?= format_remark_pdf($row['remarks'] ?? '') ?></td>
                                         </tr>
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
-                            <?php elseif (strpos($table, 'suppression') !== false || $table === 'wet_chemical_system'): ?>
+
+                            <?php elseif ($section_name === 'PUMP INFO'): ?>
                                 <table class="data-table">
                                     <thead>
-                                        <tr><th colspan="4" class="section-header"><?= strtoupper($system_name) ?></th></tr>
-                                        <tr><th colspan="4" class="sub-header"><?= strtoupper($system_name) ?></th></tr>
-                                        <tr><th width="10%">BIL</th><th width="40%" style="text-align:left;">LOCATION/ROOM</th><th width="25%" style="text-align:left;">CYLINDER CAPACITY (KG)</th><th width="25%" style="text-align:left;">QUANTITY OF CYLINDER</th></tr>
+                                        <tr><th colspan="4" class="section-header"><?= strtoupper($system_name) ?> PUMP</th></tr>
+                                        <tr><th width="5%">BIL</th><th width="45%" style="text-align:left;">DESCRIPTION</th><th width="15%">STATUS</th><th width="35%" style="text-align:left;">REMARKS & PHOTOS</th></tr>
                                     </thead>
                                     <tbody>
                                         <?php foreach ($rows as $row): ?>
                                         <tr>
                                             <td class="center bold"><?= htmlspecialchars($row['item_bil']) ?></td>
-                                            <td><?= htmlspecialchars($row['location_floor'] ?: '-') ?></td>
-                                            <td><?= htmlspecialchars($row['panel_type'] ?: '-') ?></td>
-                                            <td><?= htmlspecialchars($row['panel_qty'] ?: '-') ?></td>
+                                            <td class="<?= in_array($row['item_bil'], ['8 a)', '8 b)']) ? 'indent' : 'bold' ?>"><?= htmlspecialchars($row['description']) ?></td>
+                                            
+                                            <!-- Custom format rendering specifically for Hose Reel Cut In / Cut Out format -->
+                                            <?php if ($table === 'fire_hose_reel_system' && in_array($row['item_bil'], ['8 a)', '8 b)'])): ?>
+                                                <td class="center">
+                                                    <?php
+                                                    preg_match('/DUTY:\s*(.*?)\s*\|\s*STANDBY:\s*(.*)/i', $row['checklist'], $matches);
+                                                    $duty_val = $matches[1] ?? '-';
+                                                    $standby_val = $matches[2] ?? '-';
+                                                    
+                                                    // Create a clean layout for the PDF
+                                                    echo "<div style='text-align: left; font-size: 9px;'>
+                                                            <div><span style='color:#6b7280; font-weight:bold;'>DUTY:</span> " . htmlspecialchars($duty_val) . "</div>
+                                                            <div style='margin-top:2px;'><span style='color:#6b7280; font-weight:bold;'>STBY:</span> " . htmlspecialchars($standby_val) . "</div>
+                                                        </div>";
+                                                    ?>
+                                                </td>
+                                            <?php else: ?>
+                                                <td class="center"><?= htmlspecialchars($row['checklist'] ?: '-') ?></td>
+                                            <?php endif; ?>
+                                            
+                                            <td><?= format_remark_pdf($row['remarks'] ?? '') ?></td>
                                         </tr>
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
-                            <?php else: ?>
+
+                            <?php elseif ($section_name === 'PUMP PRESSURE'): ?>
                                 <table class="data-table">
                                     <thead>
-                                        <tr><th colspan="7" class="section-header"><?= strtoupper($system_name) ?> CONTROL PANEL PROFILE</th></tr>
-                                        <tr><th width="5%">BIL</th><th width="20%" style="text-align:left;">PANEL PROFILE</th><th width="15%" style="text-align:left;">TYPE OF PANEL</th><th width="15%" style="text-align:left;">BRAND OF PANEL</th><th width="12%" style="text-align:left;">MODEL</th><th width="10%">QTY/ZONE</th><th width="23%" style="text-align:left;">LOCATION</th></tr>
+                                        <tr><th colspan="4" class="section-header"><?= strtoupper($system_name) ?> PUMP PRESSURE</th></tr>
+                                        <tr><th width="5%">BIL</th><th width="45%" style="text-align:left;">VALVE (TYPE)</th><th width="15%">VALUE</th><th width="35%" style="text-align:left;">REMARKS & PHOTOS</th></tr>
                                     </thead>
                                     <tbody>
                                         <?php foreach ($rows as $row): ?>
                                         <tr>
                                             <td class="center bold"><?= htmlspecialchars($row['item_bil']) ?></td>
                                             <td class="bold"><?= htmlspecialchars($row['description']) ?></td>
-                                            <td><?= htmlspecialchars($row['panel_type'] ?: '-') ?></td>
-                                            <td><?= htmlspecialchars($row['panel_brand'] ?: '-') ?></td>
-                                            <td><?= htmlspecialchars($row['panel_model'] ?: '-') ?></td>
-                                            <td class="center"><?= htmlspecialchars($row['panel_qty'] ?: '-') ?></td>
-                                            <td><?= htmlspecialchars($row['location_floor'] ?: '-') ?></td>
+                                            <td class="center"><?= htmlspecialchars($row['checklist'] ?: '-') ?></td>
+                                            <td><?= format_remark_pdf($row['remarks'] ?? '') ?></td>
                                         </tr>
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
-                            <?php endif; ?>
 
-                        <?php elseif ($section_name === 'SYSTEM INFO'): ?>
-                            <table class="data-table">
-                                <thead>
-                                    <tr>
-                                        <th colspan="4" class="section-header">FIRE SUPPRESSION SYSTEM PANEL & CYLINDER</th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="4" class="sub-header"><?= strtoupper($system_name) ?></th>
-                                    </tr>
-                                    <tr>
-                                        <th width="8%">BIL</th>
-                                        <th width="42%" style="text-align:left;">DESCRIPTION</th>
-                                        <th width="15%" style="text-align:center;">STATUS</th>
-                                        <th width="35%" style="text-align:left;">REMARKS & PHOTOS</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($rows as $row): ?>
-                                    <tr>
-                                        <td class="center bold"><?= htmlspecialchars($row['item_bil']) ?></td>
-                                        <td>
-                                            <strong><?= htmlspecialchars($row['description'] ?: '-') ?></strong>
-                                            <?php if (!empty($row['location_floor']) && $row['location_floor'] !== '-'): ?>
-                                                <br><span style="font-size: 8px; color: #6b7280;">Location: <?= htmlspecialchars($row['location_floor']) ?></span>
-                                            <?php endif; ?>
-                                            <?php if (!empty($row['panel_type']) && $row['panel_type'] !== '-'): ?>
-                                                <br><span style="font-size: 8px; color: #6b7280;">Type: <?= htmlspecialchars($row['panel_type']) ?></span>
-                                            <?php endif; ?>
-                                            <?php if (!empty($row['panel_brand']) && $row['panel_brand'] !== '-'): ?>
-                                                <br><span style="font-size: 8px; color: #6b7280;">Brand: <?= htmlspecialchars($row['panel_brand']) ?></span>
-                                            <?php endif; ?>
-                                            <?php if (!empty($row['panel_model']) && $row['panel_model'] !== '-'): ?>
-                                                <br><span style="font-size: 8px; color: #6b7280;">Model: <?= htmlspecialchars($row['panel_model']) ?></span>
-                                            <?php endif; ?>
-                                        </td>
-                                        <td class="center">
-                                            <?php if ($row['checklist'] === 'Done'): ?>
-                                                <span style="color: #059669; font-weight: bold;">[ DONE ]</span>
-                                            <?php elseif ($row['checklist'] === 'N/A'): ?>
-                                                <span style="color: #dc2626; font-weight: bold;">[ N/A ]</span>
-                                            <?php else: ?>
-                                                <?= htmlspecialchars($row['checklist'] ?: '-') ?>
-                                            <?php endif; ?>
-                                        </td>
-                                        <td><?= format_remark_pdf($row['remarks'] ?? '') ?></td>
-                                    </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
+                            <?php elseif ($section_name === 'DEVICES'): ?>
+                                <table class="data-table">
+                                    <thead>
+                                        <tr><th colspan="6" class="section-header"><?= strtoupper($system_name . ' - ' . $section_name) ?></th></tr>
+                                        <tr><th width="5%">BIL</th><th width="35%" style="text-align:left;">DESCRIPTION</th><th width="15%">ZONE/LOOP</th><th width="10%">CHECKLIST</th><th width="10%">CONDITION</th><th width="25%" style="text-align:left;">REMARKS & PHOTOS</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
+                                        $current_main_bil = '';
+                                        foreach ($rows as $row): 
+                                            $bil_parts = explode('-', $row['item_bil']);
+                                            if (count($bil_parts) > 1) {
+                                                $main_bil = $bil_parts[0];
+                                                $sub_bil = $bil_parts[1];
+                                                if ($main_bil !== $current_main_bil) {
+                                                    echo '<tr><td class="center bold">'.htmlspecialchars($main_bil).'</td><td colspan="5" class="bold" style="background:#f1f5f9; color:#111827;">'.htmlspecialchars($row['description']).'</td></tr>';
+                                                    $current_main_bil = $main_bil;
+                                                }
+                                                echo '<tr>';
+                                                echo '<td class="center">' . htmlspecialchars($sub_bil) . '</td>';
+                                                echo '<td class="indent">' . htmlspecialchars($row['location_floor'] ?: '-') . '</td>';
+                                                echo '<td class="center">' . htmlspecialchars($row['zone_loop'] ?: '-') . '</td>';
+                                                echo '<td class="center">' . format_check_pdf($row['checklist']) . '</td>';
+                                                echo '<td class="center">' . format_condition_pdf($row['item_condition']) . '</td>';
+                                                echo '<td>' . format_remark_pdf($row['remarks'] ?? '') . '</td>';
+                                                echo '</tr>';
+                                            } else {
+                                                echo '<tr>';
+                                                echo '<td class="center bold">' . htmlspecialchars($row['item_bil']) . '</td>';
+                                                echo '<td class="bold">' . htmlspecialchars($row['description']) . '</td>';
+                                                echo '<td class="center">' . htmlspecialchars($row['zone_loop'] ?: '-') . '</td>';
+                                                echo '<td class="center">' . format_check_pdf($row['checklist']) . '</td>';
+                                                echo '<td class="center">' . format_condition_pdf($row['item_condition']) . '</td>';
+                                                echo '<td>' . format_remark_pdf($row['remarks'] ?? '') . '</td>';
+                                                echo '</tr>';
+                                            }
+                                        endforeach; 
+                                        ?>
+                                    </tbody>
+                                </table>
 
-                        <?php elseif ($section_name === 'PUMP INFO'): ?>
-                            <table class="data-table">
-                                <thead>
-                                    <tr><th colspan="4" class="section-header"><?= strtoupper($system_name) ?> PUMP</th></tr>
-                                    <tr><th width="5%">BIL</th><th width="45%" style="text-align:left;">DESCRIPTION</th><th width="15%">STATUS</th><th width="35%" style="text-align:left;">REMARKS & PHOTOS</th></tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($rows as $row): ?>
-                                    <tr>
-                                        <td class="center bold"><?= htmlspecialchars($row['item_bil']) ?></td>
-                                        <td class="<?= in_array($row['item_bil'], ['8 a)', '8 b)']) ? 'indent' : 'bold' ?>"><?= htmlspecialchars($row['description']) ?></td>
-                                        
-                                        <!-- Custom format rendering specifically for Hose Reel Cut In / Cut Out format -->
-                                        <?php if ($table === 'fire_hose_reel_system' && in_array($row['item_bil'], ['8 a)', '8 b)'])): ?>
-                                            <td class="center">
-                                                <?php
-                                                preg_match('/DUTY:\s*(.*?)\s*\|\s*STANDBY:\s*(.*)/i', $row['checklist'], $matches);
-                                                $duty_val = $matches[1] ?? '-';
-                                                $standby_val = $matches[2] ?? '-';
+                            <?php elseif ($section_name === 'SIGNAL TEST'): ?>
+                                <table class="data-table">
+                                    <thead>
+                                        <tr><th colspan="5" class="section-header"><?= strtoupper($system_name . ' - ' . $section_name) ?></th></tr>
+                                        <tr><th width="5%">BIL</th><th width="45%" style="text-align:left;">DESCRIPTION</th><th width="10%">CHECKLIST</th><th width="15%">CONDITION</th><th width="25%" style="text-align:left;">REMARKS & PHOTOS</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
+                                        $current_main_bil = '';
+                                        foreach ($rows as $row): 
+                                            $bil_parts = explode('-', $row['item_bil']);
+                                            if (count($bil_parts) > 1) {
+                                                $main_bil = $bil_parts[0];
+                                                $sub_bil = $bil_parts[1];
+                                                $desc_parts = explode(' - ', $row['description'], 2);
+                                                $main_desc = $desc_parts[0];
+                                                $sub_desc = $desc_parts[1] ?? $main_desc;
                                                 
-                                                // Create a clean layout for the PDF
-                                                echo "<div style='text-align: left; font-size: 9px;'>
-                                                        <div><span style='color:#6b7280; font-weight:bold;'>DUTY:</span> " . htmlspecialchars($duty_val) . "</div>
-                                                        <div style='margin-top:2px;'><span style='color:#6b7280; font-weight:bold;'>STBY:</span> " . htmlspecialchars($standby_val) . "</div>
-                                                      </div>";
-                                                ?>
-                                            </td>
-                                        <?php else: ?>
-                                            <td class="center"><?= htmlspecialchars($row['checklist'] ?: '-') ?></td>
-                                        <?php endif; ?>
-                                        
-                                        <td><?= format_remark_pdf($row['remarks'] ?? '') ?></td>
-                                    </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-
-                        <?php elseif ($section_name === 'PUMP PRESSURE'): ?>
-                            <table class="data-table">
-                                <thead>
-                                    <tr><th colspan="4" class="section-header"><?= strtoupper($system_name) ?> PUMP PRESSURE</th></tr>
-                                    <tr><th width="5%">BIL</th><th width="45%" style="text-align:left;">VALVE (TYPE)</th><th width="15%">VALUE</th><th width="35%" style="text-align:left;">REMARKS & PHOTOS</th></tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($rows as $row): ?>
-                                    <tr>
-                                        <td class="center bold"><?= htmlspecialchars($row['item_bil']) ?></td>
-                                        <td class="bold"><?= htmlspecialchars($row['description']) ?></td>
-                                        <td class="center"><?= htmlspecialchars($row['checklist'] ?: '-') ?></td>
-                                        <td><?= format_remark_pdf($row['remarks'] ?? '') ?></td>
-                                    </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-
-                        <?php elseif ($section_name === 'DEVICES'): ?>
-                            <table class="data-table">
-                                <thead>
-                                    <tr><th colspan="6" class="section-header"><?= strtoupper($system_name . ' - ' . $section_name) ?></th></tr>
-                                    <tr><th width="5%">BIL</th><th width="35%" style="text-align:left;">DESCRIPTION</th><th width="15%">ZONE/LOOP</th><th width="10%">CHECKLIST</th><th width="10%">CONDITION</th><th width="25%" style="text-align:left;">REMARKS & PHOTOS</th></tr>
-                                </thead>
-                                <tbody>
-                                    <?php 
-                                    $current_main_bil = '';
-                                    foreach ($rows as $row): 
-                                        $bil_parts = explode('-', $row['item_bil']);
-                                        if (count($bil_parts) > 1) {
-                                            $main_bil = $bil_parts[0];
-                                            $sub_bil = $bil_parts[1];
-                                            if ($main_bil !== $current_main_bil) {
-                                                echo '<tr><td class="center bold">'.htmlspecialchars($main_bil).'</td><td colspan="5" class="bold" style="background:#f1f5f9; color:#111827;">'.htmlspecialchars($row['description']).'</td></tr>';
-                                                $current_main_bil = $main_bil;
+                                                if ($main_bil !== $current_main_bil) {
+                                                    echo '<tr><td class="center bold">'.htmlspecialchars($main_bil).'</td><td colspan="4" class="bold" style="background:#f1f5f9; color:#111827;">'.htmlspecialchars($main_desc).'</td></tr>';
+                                                    $current_main_bil = $main_bil;
+                                                }
+                                                echo '<tr>';
+                                                echo '<td class="center">' . htmlspecialchars($sub_bil) . '</td>';
+                                                echo '<td class="indent">' . htmlspecialchars($sub_desc) . '</td>';
+                                                echo '<td class="center">' . format_check_pdf($row['checklist']) . '</td>';
+                                                echo '<td class="center">' . format_condition_pdf($row['item_condition']) . '</td>';
+                                                echo '<td>' . format_remark_pdf($row['remarks'] ?? '') . '</td>';
+                                                echo '</tr>';
+                                            } else {
+                                                echo '<tr>';
+                                                echo '<td class="center bold">' . htmlspecialchars($row['item_bil']) . '</td>';
+                                                echo '<td class="bold">' . htmlspecialchars($row['description']) . '</td>';
+                                                echo '<td class="center">' . format_check_pdf($row['checklist']) . '</td>';
+                                                echo '<td class="center">' . format_condition_pdf($row['item_condition']) . '</td>';
+                                                echo '<td>' . format_remark_pdf($row['remarks'] ?? '') . '</td>';
+                                                echo '</tr>';
                                             }
-                                            echo '<tr>';
-                                            echo '<td class="center">' . htmlspecialchars($sub_bil) . '</td>';
-                                            echo '<td class="indent">' . htmlspecialchars($row['location_floor'] ?: '-') . '</td>';
-                                            echo '<td class="center">' . htmlspecialchars($row['zone_loop'] ?: '-') . '</td>';
-                                            echo '<td class="center">' . format_check_pdf($row['checklist']) . '</td>';
-                                            echo '<td class="center">' . format_condition_pdf($row['item_condition']) . '</td>';
-                                            echo '<td>' . format_remark_pdf($row['remarks'] ?? '') . '</td>';
-                                            echo '</tr>';
-                                        } else {
-                                            echo '<tr>';
-                                            echo '<td class="center bold">' . htmlspecialchars($row['item_bil']) . '</td>';
-                                            echo '<td class="bold">' . htmlspecialchars($row['description']) . '</td>';
-                                            echo '<td class="center">' . htmlspecialchars($row['zone_loop'] ?: '-') . '</td>';
-                                            echo '<td class="center">' . format_check_pdf($row['checklist']) . '</td>';
-                                            echo '<td class="center">' . format_condition_pdf($row['item_condition']) . '</td>';
-                                            echo '<td>' . format_remark_pdf($row['remarks'] ?? '') . '</td>';
-                                            echo '</tr>';
-                                        }
-                                    endforeach; 
-                                    ?>
-                                </tbody>
-                            </table>
+                                        endforeach; 
+                                        ?>
+                                    </tbody>
+                                </table>
 
-                        <?php elseif ($section_name === 'SIGNAL TEST'): ?>
-                            <table class="data-table">
-                                <thead>
-                                    <tr><th colspan="5" class="section-header"><?= strtoupper($system_name . ' - ' . $section_name) ?></th></tr>
-                                    <tr><th width="5%">BIL</th><th width="45%" style="text-align:left;">DESCRIPTION</th><th width="10%">CHECKLIST</th><th width="15%">CONDITION</th><th width="25%" style="text-align:left;">REMARKS & PHOTOS</th></tr>
-                                </thead>
-                                <tbody>
-                                    <?php 
-                                    $current_main_bil = '';
-                                    foreach ($rows as $row): 
-                                        $bil_parts = explode('-', $row['item_bil']);
-                                        if (count($bil_parts) > 1) {
-                                            $main_bil = $bil_parts[0];
-                                            $sub_bil = $bil_parts[1];
-                                            $desc_parts = explode(' - ', $row['description'], 2);
-                                            $main_desc = $desc_parts[0];
-                                            $sub_desc = $desc_parts[1] ?? $main_desc;
-                                            
-                                            if ($main_bil !== $current_main_bil) {
-                                                echo '<tr><td class="center bold">'.htmlspecialchars($main_bil).'</td><td colspan="4" class="bold" style="background:#f1f5f9; color:#111827;">'.htmlspecialchars($main_desc).'</td></tr>';
-                                                $current_main_bil = $main_bil;
-                                            }
-                                            echo '<tr>';
-                                            echo '<td class="center">' . htmlspecialchars($sub_bil) . '</td>';
-                                            echo '<td class="indent">' . htmlspecialchars($sub_desc) . '</td>';
-                                            echo '<td class="center">' . format_check_pdf($row['checklist']) . '</td>';
-                                            echo '<td class="center">' . format_condition_pdf($row['item_condition']) . '</td>';
-                                            echo '<td>' . format_remark_pdf($row['remarks'] ?? '') . '</td>';
-                                            echo '</tr>';
-                                        } else {
-                                            echo '<tr>';
-                                            echo '<td class="center bold">' . htmlspecialchars($row['item_bil']) . '</td>';
-                                            echo '<td class="bold">' . htmlspecialchars($row['description']) . '</td>';
-                                            echo '<td class="center">' . format_check_pdf($row['checklist']) . '</td>';
-                                            echo '<td class="center">' . format_condition_pdf($row['item_condition']) . '</td>';
-                                            echo '<td>' . format_remark_pdf($row['remarks'] ?? '') . '</td>';
-                                            echo '</tr>';
-                                        }
-                                    endforeach; 
-                                    ?>
-                                </tbody>
-                            </table>
-
-                        <?php elseif (strpos($section_name, 'PUMP TEST') !== false): ?>
-                            <table class="data-table">
-                                <thead>
-                                    <tr><th colspan="5" class="section-header"><?= strtoupper($system_name . ' - ' . $section_name) ?></th></tr>
-                                    <tr><th width="5%">BIL</th><th width="45%" style="text-align:left;">DESCRIPTION</th><th width="10%">CHECKLIST</th><th width="15%">CONDITION</th><th width="25%" style="text-align:left;">REMARKS & PHOTOS</th></tr>
-                                    <tr style="background-color: #f1f5f9; border-top: 1px solid #d1d5db;">
-                                        <td class="center bold"><?= strpos($section_name, 'MANUAL') !== false ? '1' : '2' ?></td>
-                                        <td colspan="4" class="bold" style="color:#111827;"><?= strpos($section_name, 'MANUAL') !== false ? 'MANUAL TEST FOR:' : 'AUTO TEST FOR:' ?></td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($rows as $row): ?>
-                                        <tr>
-                                            <td class="center"><?= htmlspecialchars($row['item_bil']) ?></td>
-                                            <td class="indent"><?= htmlspecialchars($row['description']) ?></td>
-                                            <td class="center"><?= format_check_pdf($row['checklist']) ?></td>
-                                            <td class="center"><?= format_condition_pdf($row['item_condition']) ?></td>
-                                            <td><?= format_remark_pdf($row['remarks'] ?? '') ?></td>
+                            <?php elseif (strpos($section_name, 'PUMP TEST') !== false): ?>
+                                <table class="data-table">
+                                    <thead>
+                                        <tr><th colspan="5" class="section-header"><?= strtoupper($system_name . ' - ' . $section_name) ?></th></tr>
+                                        <tr><th width="5%">BIL</th><th width="45%" style="text-align:left;">DESCRIPTION</th><th width="10%">CHECKLIST</th><th width="15%">CONDITION</th><th width="25%" style="text-align:left;">REMARKS & PHOTOS</th></tr>
+                                        <tr style="background-color: #f1f5f9; border-top: 1px solid #d1d5db;">
+                                            <td class="center bold"><?= strpos($section_name, 'MANUAL') !== false ? '1' : '2' ?></td>
+                                            <td colspan="4" class="bold" style="color:#111827;"><?= strpos($section_name, 'MANUAL') !== false ? 'MANUAL TEST FOR:' : 'AUTO TEST FOR:' ?></td>
                                         </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($rows as $row): ?>
+                                            <tr>
+                                                <td class="center"><?= htmlspecialchars($row['item_bil']) ?></td>
+                                                <td class="indent"><?= htmlspecialchars($row['description']) ?></td>
+                                                <td class="center"><?= format_check_pdf($row['checklist']) ?></td>
+                                                <td class="center"><?= format_condition_pdf($row['item_condition']) ?></td>
+                                                <td><?= format_remark_pdf($row['remarks'] ?? '') ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
 
-                        <?php else: ?>
-                            <table class="data-table">
-                                <thead>
-                                    <tr><th colspan="5" class="section-header"><?= strtoupper($system_name . ' - ' . $section_name) ?></th></tr>
-                                    <tr><th width="5%">BIL</th><th width="45%" style="text-align:left;">DESCRIPTION</th><th width="10%">CHECKLIST</th><th width="15%">CONDITION</th><th width="25%" style="text-align:left;">REMARKS & PHOTOS</th></tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($rows as $row): 
-                                        $is_sub = strpos($row['item_bil'], '-') !== false;
-                                        $display_bil = $is_sub ? explode('-', $row['item_bil'])[1] : $row['item_bil'];
-                                        $is_header = empty($row['checklist']) && empty($row['item_condition']); 
-                                    ?>
-                                        <tr>
-                                            <td class="center <?= !$is_sub ? 'bold' : '' ?>"><?= htmlspecialchars($display_bil) ?></td>
-                                            <td class="<?= $is_sub ? 'indent' : ($is_header ? 'bold' : '') ?>"><?= htmlspecialchars($row['description']) ?></td>
-                                            <td class="center"><?= format_check_pdf($row['checklist']) ?></td>
-                                            <td class="center"><?= format_condition_pdf($row['item_condition']) ?></td>
-                                            <td><?= format_remark_pdf($row['remarks'] ?? '') ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        <?php endif; ?>
-                        
+                            <?php else: ?>
+                                <table class="data-table">
+                                    <thead>
+                                        <tr><th colspan="5" class="section-header"><?= strtoupper($system_name . ' - ' . $section_name) ?></th></tr>
+                                        <tr><th width="5%">BIL</th><th width="45%" style="text-align:left;">DESCRIPTION</th><th width="10%">CHECKLIST</th><th width="15%">CONDITION</th><th width="25%" style="text-align:left;">REMARKS & PHOTOS</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($rows as $row): 
+                                            $is_sub = strpos($row['item_bil'], '-') !== false;
+                                            $display_bil = $is_sub ? explode('-', $row['item_bil'])[1] : $row['item_bil'];
+                                            $is_header = empty($row['checklist']) && empty($row['item_condition']); 
+                                        ?>
+                                            <tr>
+                                                <td class="center <?= !$is_sub ? 'bold' : '' ?>"><?= htmlspecialchars($display_bil) ?></td>
+                                                <td class="<?= $is_sub ? 'indent' : ($is_header ? 'bold' : '') ?>"><?= htmlspecialchars($row['description']) ?></td>
+                                                <td class="center"><?= format_check_pdf($row['checklist']) ?></td>
+                                                <td class="center"><?= format_condition_pdf($row['item_condition']) ?></td>
+                                                <td><?= format_remark_pdf($row['remarks'] ?? '') ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            <?php endif; ?>
+                            
+                        <?php endforeach; ?>
                     <?php endforeach; ?>
                 <?php endforeach; ?>
-            <?php endforeach; ?>
-            
-        <?php endif; ?>
+                
+            <?php endif; ?>
 
-        <?php if (!empty($task['tech_signature']) || !empty($task['client_signature'])): ?>
-        <table class="signatures">
-            <tr>
-                <td>
-                    <div class="sig-box">
-                        <?php if(!empty($task['tech_signature'])): ?>
-                            <img src="<?php echo htmlspecialchars($task['tech_signature']); ?>" class="sig-img">
-                        <?php endif; ?>
-                        <div class="sig-line"></div>
-                        <p class="sig-name"><?php echo !empty($task['tech_sign_name']) ? htmlspecialchars(strtoupper($task['tech_sign_name'])) : 'TECHNICIAN'; ?></p>
-                        <p class="sig-role" style="font-weight: bold; color: #111827; margin-bottom: 4px;">LTA SERVICES SDN. BHD.</p>
-                        <p class="sig-role">Technician Signature</p>
-                    </div>
-                </td>
-                <td>
-                    <div class="sig-box">
-                        <?php if(!empty($task['client_signature'])): ?>
-                            <img src="<?php echo htmlspecialchars($task['client_signature']); ?>" class="sig-img">
-                        <?php endif; ?>
-                        <div class="sig-line"></div>
-                        <p class="sig-name"><?php echo !empty($task['client_sign_name']) ? htmlspecialchars(strtoupper($task['client_sign_name'])) : 'CLIENT REPRESENTATIVE'; ?></p>
-                        <p class="sig-role">Client Signature</p>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <?php endif; ?>
+            <?php if (!empty($task['tech_signature']) || !empty($task['client_signature'])): ?>
+            <table class="signatures">
+                <tr>
+                    <td>
+                        <div class="sig-box">
+                            <?php if(!empty($task['tech_signature'])): ?>
+                                <img src="<?php echo htmlspecialchars($task['tech_signature']); ?>" class="sig-img">
+                            <?php endif; ?>
+                            <div class="sig-line"></div>
+                            <p class="sig-name"><?php echo !empty($task['tech_sign_name']) ? htmlspecialchars(strtoupper($task['tech_sign_name'])) : 'TECHNICIAN'; ?></p>
+                            <p class="sig-role" style="font-weight: bold; color: #111827; margin-bottom: 4px;">LTA SERVICES SDN. BHD.</p>
+                            <p class="sig-role">Technician Signature</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="sig-box">
+                            <?php if(!empty($task['client_signature'])): ?>
+                                <img src="<?php echo htmlspecialchars($task['client_signature']); ?>" class="sig-img">
+                            <?php endif; ?>
+                            <div class="sig-line"></div>
+                            <p class="sig-name"><?php echo !empty($task['client_sign_name']) ? htmlspecialchars(strtoupper($task['client_sign_name'])) : 'CLIENT REPRESENTATIVE'; ?></p>
+                            <p class="sig-role">Client Signature</p>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <?php endif; ?>
 
-    </div> 
-</body>
-</html>
-<?php
-$html = ob_get_clean();
+        </div> 
+    </body>
+    </html>
+    <?php
+    $html = ob_get_clean();
 
-// 6. Generate and output PDF
-$options = new Options();
-$options->set('isRemoteEnabled', true); 
-$options->set('isHtml5ParserEnabled', true);
-$options->set('defaultFont', 'Helvetica');
+    // 6. Generate and output PDF
+    $options = new Options();
+    $options->set('isRemoteEnabled', true); 
+    $options->set('isHtml5ParserEnabled', true);
+    $options->set('defaultFont', 'Helvetica');
 
-$dompdf = new Dompdf($options);
-$dompdf->loadHtml($html);
-$dompdf->setPaper('A4', 'portrait');
-$dompdf->render();
+    $dompdf = new Dompdf($options);
+    $dompdf->loadHtml($html);
+    $dompdf->setPaper('A4', 'portrait');
+    $dompdf->render();
 
-$filename = "Service_Report_Task_" . $task_id . ".pdf";
-$dompdf->stream($filename, ["Attachment" => false]);
-exit();
+    $filename = "Service_Report_Task_" . $task_id . ".pdf";
+    $dompdf->stream($filename, ["Attachment" => false]);
+    exit();
 ?>
