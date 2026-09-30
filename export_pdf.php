@@ -177,7 +177,7 @@ ob_start();
     <title>Service Report Task #<?= $task_id ?></title>
     <style>
         /* Force zero margins on the page to allow edge-to-edge bleeding */
-        @page { margin: 175px 40px 40px 40px; }
+        @page { margin: 0px; }
         
         body { font-family: 'Helvetica', 'Arial', sans-serif; font-size: 10px; color: #111827; margin: 0; padding: 0; }
         
@@ -211,15 +211,11 @@ ob_start();
 
         /* ============ LTA RED BANNER LETTERHEAD ============ */
         .letterhead-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 145px;
             background-color: #B00E16;
             color: #ffffff;
             padding: 0;
             margin: 0;
+            position: fixed;
             z-index: 1000;
         }
         .letterhead-table { width: 100%; border-collapse: collapse; border: none; }
