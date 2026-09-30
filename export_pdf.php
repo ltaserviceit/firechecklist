@@ -359,6 +359,12 @@ ob_start();
                             echo !empty($task['tech_sign_name']) ? htmlspecialchars(strtoupper($task['tech_sign_name'])) : 'Technician (ID: ' . htmlspecialchars($task['tech_id'] ?? 'Unknown') . ')'; 
                         ?>
                     </div>
+                    <div>
+                        <strong>Date Inspected:</strong>
+                        <?= !empty($task['inspection_date'])
+                            ? date('d M Y, h:i A', strtotime($task['inspection_date']))
+                            : 'N/A' ?>
+                    </div>
                 </td>
             </tr>
         </table>
