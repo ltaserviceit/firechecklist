@@ -177,7 +177,7 @@ ob_start();
     <title>Service Report Task #<?= $task_id ?></title>
     <style>
         /* Force zero margins on the page to allow edge-to-edge bleeding */
-        @page { margin: 0px; }
+        @page { margin: 175px 40px 40px 40px; }
         
         body { font-family: 'Helvetica', 'Arial', sans-serif; font-size: 10px; color: #111827; margin: 0; padding: 0; }
         
