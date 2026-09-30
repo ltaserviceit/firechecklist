@@ -211,10 +211,16 @@ ob_start();
 
         /* ============ LTA RED BANNER LETTERHEAD ============ */
         .letterhead-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 145px;
             background-color: #B00E16;
             color: #ffffff;
             padding: 0;
             margin: 0;
+            z-index: 1000;
         }
         .letterhead-table { width: 100%; border-collapse: collapse; border: none; }
         .letterhead-table td { border: none; padding: 0; vertical-align: middle; }
