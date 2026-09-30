@@ -20,21 +20,25 @@
         $tech_sig = $conn->real_escape_string($_POST['tech_signature']);
         $client_sig = $conn->real_escape_string($_POST['client_signature']);
 
+        // Inspection date/time recorded automatically (Asia/Kuching time)
+        $inspection_date = date('Y-m-d H:i:s');
+
         // Update task as completed
         $query = "UPDATE tasks 
                 SET status = 'Completed',
-                    inspection_date = NOW(),
+                    inspection_date = '$inspection_date',
                     tech_sign_name = '$tech_name',
                     client_sign_name = '$client_name',
                     tech_signature = '$tech_sig',
                     client_signature = '$client_sig'
                 WHERE task_id = $task_id 
                 AND status = 'Pending'";
-        if ($conn->query($query)) {
+
+        if ($conn->query($query) && $conn->affected_rows > 0) {
             // Success - return to technician dashboard
             header("Location: tech_dashboard.php?completed=success");
         } else {
-            // Database Error
+            // Database Error, or task was already completed
             header("Location: tech_dashboard.php?error=failed");
         }
     } else {
