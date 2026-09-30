@@ -216,7 +216,6 @@ ob_start();
             padding: 0;
             margin: 0;
             position: fixed;
-            z-index: 1000;
         }
         .letterhead-table { width: 100%; border-collapse: collapse; border: none; }
         .letterhead-table td { border: none; padding: 0; vertical-align: middle; }
