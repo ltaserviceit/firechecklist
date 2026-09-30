@@ -211,26 +211,79 @@ ob_start();
 
         /* ============ LTA RED BANNER LETTERHEAD ============ */
         .letterhead-container {
+            position: fixed;
+            top: -135px;
+            left: -40px;
+            right: -40px;
+            height: 115px;
             background-color: #B00E16;
             color: #ffffff;
             padding: 0;
             margin: 0;
-            position: fixed;
             z-index: 1000;
-            top: 0;
-            left:0;
-            right: 0;
         }
-        .letterhead-table { width: 100%; border-collapse: collapse; border: none; }
-        .letterhead-table td { border: none; padding: 0; vertical-align: middle; }
-        .lh-logo-cell { width: 22%; text-align: center; background-color: #B00E16; padding: 18px 20px; }
-        .lh-text-cell { width: 78%; padding: 20px 30px; vertical-align: middle; }
-        .lh-logo { max-width: 150px; max-height: 95px; }
-        .lh-title { font-size: 26px; font-weight: bold; margin: 0 0 8px 0; letter-spacing: 0.3px; line-height: 1.2; }
-        .lh-reg { font-size: 13px; font-weight: normal; }
-        .lh-details { font-size: 11.5px; line-height: 1.75; margin-top: 4px; }
+
+        .letterhead-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: none;
+        }
+
+        .letterhead-table td {
+            border: none;
+            padding: 0;
+            vertical-align: middle;
+        }
+
+        .lh-logo-cell {
+            width: 22%;
+            text-align: center;
+            background-color: #B00E16;
+            padding: 12px 20px;
+        }
+
+        .lh-text-cell {
+            width: 78%;
+            padding: 12px 30px;
+            vertical-align: middle;
+        }
+
+        .lh-logo {
+            max-width: 130px;
+            max-height: 75px;
+        }
+
+        .lh-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 0 0 5px 0;
+            letter-spacing: 0.3px;
+            line-height: 1.1;
+        }
+
+        .lh-reg {
+            font-size: 10px;
+            font-weight: normal;
+        }
+
+        .lh-details {
+            font-size: 9px;
+            line-height: 1.5;
+            margin-top: 3px;
+        }
         
-        .lh-trim-line { height: 5px; background-color: #8BA4B5; width: 100%; }
+        .lh-trim-line {
+            position: fixed;
+
+            top: -20px;
+            left: -40px;
+            right: -40px;
+
+            height: 4px;
+            background-color: #8BA4B5;
+
+            z-index: 1001;
+        }
         
         /* ============ MAIN CONTENT PADDING ============ */
         /* Since body margins are 0, this pushes the text inward to look normal */
