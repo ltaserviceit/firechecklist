@@ -305,7 +305,7 @@ ob_start();
         table.data-table th, table.data-table td { 
             border: none; 
             border-bottom: 1px solid #e5e7eb; 
-            padding: 8px 10px; 
+            padding: 8px 6px; 
             vertical-align: middle; 
             word-wrap: break-word; 
         }
