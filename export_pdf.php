@@ -287,7 +287,7 @@ ob_start();
         
         /* ============ MAIN CONTENT PADDING ============ */
         /* Since body margins are 0, this pushes the text inward to look normal */
-        .content-wrapper { padding: 25px 40px 40px 40px; }
+        .content-wrapper { padding: 10px 0 0 0; }
 
         .report-header { text-align: center; margin-bottom: 20px; }
         .report-header h1 { margin: 0 0 8px 0; font-size: 20px; font-weight: 900; color: #111827; letter-spacing: 0.5px; text-transform: uppercase; }
