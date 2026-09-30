@@ -1,6 +1,7 @@
 <?php
     session_start();
     require 'db.php';
+    date_default_timezone_set('Asia/Kuching');
 
     // Security Check
     if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'technician') {
