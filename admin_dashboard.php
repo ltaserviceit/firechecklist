@@ -657,9 +657,10 @@ $recent_tasks = $stmt->get_result();
                             <th>Action</th>
                         </tr>
                         <?php if ($recent_tasks->num_rows > 0): ?>
+                            <?php $display_id = 1; ?>
                             <?php while($row = $recent_tasks->fetch_assoc()): ?>
                                 <tr>
-                                    <td style="font-weight: 600;">#<?php echo $row['task_id']; ?></td>
+                                    <td style="font-weight: 600;">#<?php echo str_pad($display_id++, 2, '0', STR_PAD_LEFT); ?></td>
                                     <td style="font-weight: 500; color: #111;"><?php echo htmlspecialchars($row['company_name']); ?></td>
                                     <td><?php echo htmlspecialchars($row['building_name']); ?></td>
                                     <td style="color: var(--text-muted); font-size: 13px;"><?php echo date('d M Y', strtotime($row['created_at'])); ?></td>
