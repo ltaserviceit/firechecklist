@@ -67,7 +67,7 @@ $sql = "SELECT * FROM tasks";
 if ($has_filters) {
     $sql .= " WHERE " . implode(" AND ", $where);
 }
-$sql .= " ORDER BY created_at DESC";
+$sql .= " ORDER BY created_at ASC, task_id ASC";
 if (!$has_filters) {
     $sql .= " LIMIT 5"; // no filters -> just show the 5 most recent, as before
 }
