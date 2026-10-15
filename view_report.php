@@ -304,12 +304,42 @@ function format_remark_with_image($remark_string) {
 
                 Save &amp; Download Official PDF
             </button>
-
         </div>
     </div>
+    <!-- SYSTEM SELECTION PANEL -->
+    <div id="systemSelectionPanel"
+        style="display:none; background:#fff; padding:25px;
+                border:1px solid #e5e7eb; border-radius:10px;
+                margin-top:20px; margin-bottom:20px;">
+        <h3 style="margin-top:0;">
+            Select Systems for Official PDF
+        </h3>
 
+        <p style="color:#6b7280;">
+            Select the fire protection systems to include
+            in the downloaded report.
+        </p>
+        <?php foreach ($system_tables as $table => $system_name): ?>
+            <?php if (!empty($report_data[$table])): ?>
+                <label style="display:block; margin:12px 0;">
+                    <input type="checkbox"
+                        name="selected_systems[]"
+                        form="report-info-form"
+                        value="<?= htmlspecialchars($table, ENT_QUOTES, 'UTF-8') ?>"
+                        checked>
+                    <?= htmlspecialchars($system_name) ?>
+                </label>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <div style="margin-top:20px;">
+            <button type="button"
+                    class="btn btn-back"
+                    onclick="toggleSystemSelection()">
+                Done Selecting
+            </button>
+        </div>
+    </div>
     <div class="report-container">
-        
         <div class="report-header" style="text-align: center; border-bottom: 1px solid var(--border); padding-bottom: 24px; margin-bottom: 30px;">
             <h1 style="margin: 0 0 12px 0; color: var(--text-main); font-size: clamp(24px, 5vw, 32px); text-transform: uppercase; font-weight: 900; letter-spacing: 0.5px; line-height: 1.2;">
                 FIRE PROTECTION SYSTEM<br>SERVICE REPORT
