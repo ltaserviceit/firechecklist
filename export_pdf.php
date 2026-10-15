@@ -341,7 +341,7 @@ ob_start();
             font-size: 10px;
             line-height: 1.5;
         }
-        
+
         /* ============ MAIN CONTENT PADDING ============ */
         .content-wrapper {
             padding: 10px 0 0 0;
@@ -579,11 +579,9 @@ ob_start();
         </table>
     </div>
         
-        <div class="lh-trim-line"></div>
-
-        <div class="content-wrapper">
-
-            <div class="report-header">
+    <div class="lh-trim-line"></div>
+        <div class="repeating-report-info">    
+             <div class="report-header">
                 <h1>MAINTENANCE SERVICE REPORT</h1>
                 <div class="sys-title">SYSTEMS INCLUDED:</div>
                 <div class="sys-list">
@@ -617,7 +615,10 @@ ob_start();
                         </div>
                     </td>
                 </tr>
-            </table>
+            </table>   
+        </div>
+        <div class="content-wrapper">
+
 
             <?php if (empty($report_data)): ?>
                 <div style="text-align:center; padding: 40px; color: #6b7280; font-style: italic; border: 1px solid #e5e7eb; background: #f9fafb; border-radius: 6px;">No completed checklist items found for this task. All items marked as N/A have been filtered out.</div>
