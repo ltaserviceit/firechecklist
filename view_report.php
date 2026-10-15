@@ -507,7 +507,7 @@ function format_remark_with_image($remark_string) {
                                     <tr>
                                         <td class="center bold"><?= htmlspecialchars($row['item_bil']) ?></td>
                                         <td class="bold"><?= htmlspecialchars($row['description']) ?></td>
-                                        <td class="center"><?= htmlspecialchars($row['checklist'] ?: '-') ?></td>
+                                        <td class="center"><?= htmlspecialchars(strtoupper((string)($row['checklist'] ?: '-'))) ?></td>
                                         <td><?= format_remark_with_image($row['remarks'] ?? '') ?></td>
                                     </tr>
                                     <?php endforeach; ?>
