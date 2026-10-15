@@ -177,10 +177,18 @@ ob_start();
     <title>Service Report Task #<?= $task_id ?></title>
     <style>
         /* Force zero margins on the page to allow edge-to-edge bleeding */
-        @page { margin: 135px 40px 40px 40px; }
-        
-        body { font-family: 'Helvetica', 'Arial', sans-serif; font-size: 10px; color: #111827; margin: 0; padding: 0; }
-        
+        @page {
+            margin: 135px 40px 40px 40px;
+        }
+
+        body {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            font-size: 10px;
+            color: #111827;
+            margin: 0;
+            padding: 0;
+        }
+
         /* ============ WATERMARKS ============ */
         #watermark-center {
             position: fixed;
@@ -191,6 +199,7 @@ ob_start();
             text-align: center;
             opacity: 0.15;
         }
+
         #watermark-center img {
             width: 100%;
             height: auto;
@@ -204,6 +213,7 @@ ob_start();
             z-index: -1000;
             opacity: 0.2;
         }
+
         #watermark-footer img {
             width: 100%;
             height: auto;
@@ -271,84 +281,216 @@ ob_start();
             line-height: 1.5;
             margin-top: 3px;
         }
-        
+
         .lh-trim-line {
             position: fixed;
-
             top: -20px;
             left: -40px;
             right: -40px;
-
             height: 4px;
             background-color: #8BA4B5;
-
             z-index: 1001;
         }
-        
+
         /* ============ MAIN CONTENT PADDING ============ */
-        /* Since body margins are 0, this pushes the text inward to look normal */
-        .content-wrapper { padding: 10px 0 0 0; }
+        .content-wrapper {
+            padding: 10px 0 0 0;
+        }
 
-        .report-header { text-align: center; margin-bottom: 20px; }
-        .report-header h1 { margin: 0 0 8px 0; font-size: 20px; font-weight: 900; color: #111827; letter-spacing: 0.5px; text-transform: uppercase; }
-        .report-header .sys-title { font-size: 11px; font-weight: bold; margin-bottom: 4px; color: #111827; }
-        .report-header .sys-list { font-size: 11px; color: #6b7280; }
-        
-        .task-meta { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 30px; background: #f8fafc; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; }
-        .task-meta td { padding: 12px 15px; border: none; vertical-align: top; width: 50%; font-size: 11px; line-height: 1.6; }
-        .task-meta strong { color: #6b7280; text-transform: uppercase; font-size: 10px; display: inline-block; width: 100px; letter-spacing: 0.5px; }
+        .report-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-        .system-separator { background-color: #f1f5f9; border-left: 4px solid #C41E3A; padding: 10px 14px; margin-top: 35px; margin-bottom: 15px; font-size: 13px; font-weight: bold; color: #C41E3A; text-transform: uppercase; letter-spacing: 0.5px;}
+        .report-header h1 {
+            margin: 0 0 8px 0;
+            font-size: 20px;
+            font-weight: 900;
+            color: #111827;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .report-header .sys-title {
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 4px;
+            color: #111827;
+        }
+
+        .report-header .sys-list {
+            font-size: 11px;
+            color: #6b7280;
+        }
+
+        .task-meta {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 30px;
+            background: #f8fafc;
+            border-top: 1px solid #e5e7eb;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .task-meta td {
+            padding: 12px 15px;
+            border: none;
+            vertical-align: top;
+            width: 50%;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .task-meta strong {
+            color: #6b7280;
+            text-transform: uppercase;
+            font-size: 10px;
+            display: inline-block;
+            width: 100px;
+            letter-spacing: 0.5px;
+        }
+
+        .system-separator {
+            background-color: #f1f5f9;
+            border-left: 4px solid #C41E3A;
+            padding: 10px 14px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #C41E3A;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
         /* ============ MODERN SMOOTH TABLES ============ */
-        table.data-table { width: 100%; border-collapse: collapse; margin-bottom: 25px; table-layout: fixed; }
-        table.data-table th, table.data-table td { 
-            border: none; 
-            border-bottom: 1px solid #e5e7eb; 
-            padding: 8px 6px; 
-            vertical-align: middle; 
-            word-wrap: break-word; 
+        table.data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+            table-layout: fixed;
         }
-        table.data-table th { 
-            background-color: #f9fafb; 
-            color: #6b7280; 
-            font-weight: bold; 
-            text-transform: uppercase; 
-            font-size: 9px; 
-            text-align: center; 
-            letter-spacing: 0.5px; 
+
+        table.data-table th,
+        table.data-table td {
+            border: none;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 8px 6px;
+            vertical-align: middle;
+            word-wrap: break-word;
         }
-        table.data-table th.section-header { 
-            background-color: #FC5151 !important; 
-            color: #ffffff !important; 
-            font-size: 12px; 
-            padding: 10px 12px; 
-            text-align: left; 
+
+        table.data-table th {
+            background-color: #f9fafb;
+            color: #6b7280;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 9px;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        table.data-table th.section-header {
+            background-color: #FC5151 !important;
+            color: #ffffff !important;
+            font-size: 12px;
+            padding: 10px 12px;
+            text-align: left;
             border-bottom: none;
             letter-spacing: 0.5px;
         }
-        table.data-table th.sub-header { 
-            background-color: #f1f5f9 !important; 
-            color: #C41E3A !important; 
-            font-size: 10px; 
-            text-align: left; 
-            padding: 8px 12px; 
-        }
-        
-        tbody tr:nth-child(even) td { background-color: #fafafa; }
-        table.data-table tr:last-child td { border-bottom: 2px solid #e5e7eb; } 
-        
-        .center { text-align: center; }
-        .bold { font-weight: bold; color: #111827; }
-        .indent { padding-left: 20px; color: #4b5563; }
 
-        .signatures { width: 100%; margin-top: 50px; border-collapse: collapse; page-break-inside: avoid; }
-        .signatures td { border: none; text-align: center; vertical-align: bottom; width: 50%; padding: 10px; }
-        .sig-box { border: 1px solid #e5e7eb; background: #ffffff; padding: 25px; border-radius: 8px; margin: 0 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .sig-img { max-height: 80px; max-width: 100%; margin-bottom: 12px; }
-        .sig-line { border-top: 1px solid #d1d5db; width: 80%; margin: 0 auto 12px auto; }
-        .sig-name { font-weight: bold; font-size: 12px; text-transform: uppercase; margin: 0 0 6px 0; color: #111827; letter-spacing: 0.5px; }
-        .sig-role { font-size: 10px; color: #6b7280; text-transform: uppercase; margin: 0; letter-spacing: 0.5px; }
+        table.data-table th.sub-header {
+            background-color: #f1f5f9 !important;
+            color: #C41E3A !important;
+            font-size: 10px;
+            text-align: left;
+            padding: 8px 12px;
+        }
+
+        tbody tr:nth-child(even) td {
+            background-color: #fafafa;
+        }
+
+        table.data-table tr:last-child td {
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .bold {
+            font-weight: bold;
+            color: #111827;
+        }
+
+        .indent {
+            padding-left: 20px;
+            color: #4b5563;
+        }
+
+        /* ============ SIGNATURES ============ */
+        .signatures {
+            width: 100%;
+            margin-top: 35px;
+            border-collapse: collapse;
+            page-break-inside: avoid;
+        }
+
+        .signatures td {
+            border: none;
+            text-align: center;
+            vertical-align: bottom;
+            width: 50%;
+            padding: 10px;
+        }
+
+        .sig-box {
+            border: 1px solid #e5e7eb;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 0 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .sig-img {
+            max-height: 80px;
+            max-width: 100%;
+            margin-bottom: 12px;
+        }
+
+        .sig-line {
+            border-top: 1px solid #d1d5db;
+            width: 80%;
+            margin: 0 auto 12px auto;
+        }
+
+        .sig-name {
+            font-weight: bold;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin: 0 0 6px 0;
+            color: #111827;
+            letter-spacing: 0.5px;
+        }
+
+        .sig-role {
+            font-size: 10px;
+            color: #6b7280;
+            text-transform: uppercase;
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        /* ============ NEW: PAGE BREAK AFTER EACH INSPECTION ============ */
+        .inspection-page-break {
+            page-break-after: always;
+            break-after: page;
+        }
+
     </style>
 </head>
 <body>
