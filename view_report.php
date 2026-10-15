@@ -153,6 +153,10 @@ function format_remark_with_image($remark_string) {
         .task-details p { margin: 10px 0; font-size: 15px; color: var(--text-main); display: flex; align-items: flex-start; }
         .task-details strong { color: var(--text-muted); text-transform: uppercase; font-size: 13px; letter-spacing: 0.5px; width: 140px; flex-shrink: 0; margin-top: 1px; }
 
+        .info-input { flex: 1; padding: 8px 10px; border: 1.5px solid var(--border); border-radius: 6px; font-size: 15px; font-family: inherit; background: #fff; color: var(--text-main); min-width: 0; }
+        .info-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(196,30,58,0.08); }
+        @media print { .info-input { border: none; padding: 0; background: transparent; } }
+
         /* SYSTEM SEPARATOR */
         .system-separator { background: var(--surface); color: var(--primary); padding: 18px 24px; margin-top: 60px; margin-bottom: 24px; font-size: 16px; font-weight: 700; border-radius: 8px; border: 1px solid var(--border); border-left: 6px solid var(--primary); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); text-transform: uppercase; letter-spacing: 0.5px; }
 
