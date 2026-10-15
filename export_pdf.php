@@ -22,6 +22,8 @@ $stmt->execute();
 $task_result = $stmt->get_result();
 if ($task_result->num_rows === 0) die("Task not found.");
 $task = $task_result->fetch_assoc();
+$info = get_report_info($task);
+$show = fn($v) => $v !== '' ? htmlspecialchars($v) : '-';
 
 // Function to convert image to base64
 function getImageBase64($path) {
