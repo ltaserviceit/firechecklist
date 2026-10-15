@@ -601,27 +601,18 @@ ob_start();
             <table class="task-meta">
                 <tr>
                     <td style="border-right: 1px solid #e5e7eb;">
-                        <div><strong>Task ID:</strong> #<?= str_pad($task['task_id'], 5, '0', STR_PAD_LEFT) ?></div>
-                        <div><strong>Company:</strong> <?= htmlspecialchars($task['company_name'] ?? 'N/A') ?></div>
-                        <div><strong>Building:</strong> <?= htmlspecialchars($task['building_name'] ?? 'N/A') ?></div>
+                        <div><strong>Task ID:</strong> <?= $show($info['task_id']) ?></div>
+                        <div><strong>Company:</strong> <?= $show($info['company_name']) ?></div>
+                        <div><strong>Building:</strong> <?= $show($info['building_name']) ?></div>
                     </td>
                     <td>
-                        <div><strong>Date Created:</strong> <?= date('d M Y, h:i A', strtotime($task['created_at'])) ?></div>
-                        <div><strong>Status:</strong> <span style="color: #C41E3A; font-weight: bold;"><?= htmlspecialchars($task['status']) ?></span></div>
-                        <div><strong>Inspected By:</strong> 
-                            <?php 
-                                echo !empty($task['tech_sign_name']) ? htmlspecialchars(strtoupper($task['tech_sign_name'])) : 'Technician (ID: ' . htmlspecialchars($task['tech_id'] ?? 'Unknown') . ')'; 
-                            ?>
-                        </div>
-                        <div>
-                            <strong>Date Inspected:</strong>
-                            <?= !empty($task['inspection_date'])
-                                ? date('d M Y, h:i A', strtotime($task['inspection_date']))
-                                : 'N/A' ?>
-                        </div>
+                        <div><strong>Date Created:</strong> <?= $show($info['date_created']) ?></div>
+                        <div><strong>Status:</strong> <span style="color: #C41E3A; font-weight: bold;"><?= $show($info['status']) ?></span></div>
+                        <div><strong>Inspected By:</strong> <?= $show($info['inspected_by']) ?></div>
+                        <div><strong>Date Inspected:</strong> <?= $show($info['inspection_date']) ?></div>
                     </td>
                 </tr>
-            </table>   
+            </table>  
         </div>
         <div class="content-wrapper">
             <?php if (empty($report_data)): ?>
