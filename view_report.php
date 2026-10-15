@@ -245,8 +245,16 @@ function format_remark_with_image($remark_string) {
     </style>
 </head>
 <body>
-    <div class="controls">
+    <form id="pdf-selection-form"
+        action="export_pdf.php"
+        method="POST"
+        target="_blank">
 
+        <input type="hidden"
+            name="task_id"
+            value="<?= (int)$task_id ?>">
+    </form>
+    <div class="controls">
         <!-- Back to Dashboard -->
         <a href="admin_dashboard.php" class="btn btn-back">
             <svg viewBox="0 0 24 24" width="18" height="18"
