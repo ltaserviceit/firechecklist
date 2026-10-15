@@ -82,11 +82,15 @@ function format_check($chk) {
 }
 
 // Helper to highlight Faulty conditions
-function format_condition($cond) {
+function format_condition_pdf($cond) {
     if (empty($cond) || $cond === '-') return '-';
-    if ($cond === 'Faulty') return "<span class='badge badge-faulty'>Faulty</span>";
+    $cond = strtoupper(trim((string)$cond));
+    if ($cond === 'FAULTY') {
+        return '<span style="color: #dc2626; font-weight: bold;">FAULTY</span>';
+    }
     return htmlspecialchars($cond);
 }
+
 
 // NEW HELPER: Formats the remark text and extracts the image to display it!
 function format_remark_with_image($remark_string) {
