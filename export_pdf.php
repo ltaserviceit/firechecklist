@@ -12,8 +12,18 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     die("Unauthorized access.");
 }
 
-$task_id = isset($_GET['task_id']) ? intval($_GET['task_id']) : 0;
-if ($task_id === 0) die("Invalid Task ID.");
+
+$task_id = filter_input(
+    INPUT_POST,
+    'task_id',
+    FILTER_VALIDATE_INT
+);
+
+if (!$task_id || $task_id < 1) {
+    http_response_code(400);
+    exit('Invalid Task ID. Please download from the report page.');
+}
+
 
 // 2. Fetch General Task Information
 $stmt = $conn->prepare("SELECT * FROM tasks WHERE task_id = ?");
