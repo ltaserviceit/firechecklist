@@ -621,12 +621,20 @@ ob_start();
             </table>   
         </div>
         <div class="content-wrapper">
-
-
             <?php if (empty($report_data)): ?>
                 <div style="text-align:center; padding: 40px; color: #6b7280; font-style: italic; border: 1px solid #e5e7eb; background: #f9fafb; border-radius: 6px;">No completed checklist items found for this task. All items marked as N/A have been filtered out.</div>
             <?php else: ?>
-                
+                <?php
+                    // Count all individual inspection submissions
+                    $total_inspections = 0;
+
+                    foreach ($report_data as $system_data) {
+                        $total_inspections += count($system_data['submissions']);
+                    }
+
+                    // Start inspection counter
+                    $current_inspection = 0;
+                    ?>
                 <?php foreach ($report_data as $table => $table_data): ?>
                     <?php 
                     $system_name = $table_data['system_name'];
