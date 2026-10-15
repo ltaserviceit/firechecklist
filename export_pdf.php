@@ -748,40 +748,38 @@ ob_start();
                                 </table>
                             <?php endif; ?>
                             
-                        <?php endforeach; ?>
-                    <?php endforeach; ?>
-                <?php endforeach; ?>
-                
-            <?php endif; ?>
+                        <?php endforeach; ?>// End of sections ?>
 
-            <?php if (!empty($task['tech_signature']) || !empty($task['client_signature'])): ?>
-            <table class="signatures">
-                <tr>
-                    <td>
-                        <div class="sig-box">
-                            <?php if(!empty($task['tech_signature'])): ?>
-                                <img src="<?php echo htmlspecialchars($task['tech_signature']); ?>" class="sig-img">
-                            <?php endif; ?>
-                            <div class="sig-line"></div>
-                            <p class="sig-name"><?php echo !empty($task['tech_sign_name']) ? htmlspecialchars(strtoupper($task['tech_sign_name'])) : 'TECHNICIAN'; ?></p>
-                            <p class="sig-role" style="font-weight: bold; color: #111827; margin-bottom: 4px;">LTA SERVICES SDN. BHD.</p>
-                            <p class="sig-role">Technician Signature</p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="sig-box">
-                            <?php if(!empty($task['client_signature'])): ?>
-                                <img src="<?php echo htmlspecialchars($task['client_signature']); ?>" class="sig-img">
-                            <?php endif; ?>
-                            <div class="sig-line"></div>
-                            <p class="sig-name"><?php echo !empty($task['client_sign_name']) ? htmlspecialchars(strtoupper($task['client_sign_name'])) : 'CLIENT REPRESENTATIVE'; ?></p>
-                            <p class="sig-role">Client Signature</p>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+                        <?php if (!empty($task['tech_signature']) || !empty($task['client_signature'])): ?>
+                        <table class="signatures">
+                            <tr>
+                                <td>
+                                    <div class="sig-box">
+                                        <?php if(!empty($task['tech_signature'])): ?>
+                                            <img src="<?php echo htmlspecialchars($task['tech_signature']); ?>" class="sig-img">
+                                        <?php endif; ?>
+                                        <div class="sig-line"></div>
+                                        <p class="sig-name"><?php echo !empty($task['tech_sign_name']) ? htmlspecialchars(strtoupper($task['tech_sign_name'])) : 'TECHNICIAN'; ?></p>
+                                        <p class="sig-role" style="font-weight: bold; color: #111827; margin-bottom: 4px;">LTA SERVICES SDN. BHD.</p>
+                                        <p class="sig-role">Technician Signature</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="sig-box">
+                                        <?php if(!empty($task['client_signature'])): ?>
+                                            <img src="<?php echo htmlspecialchars($task['client_signature']); ?>" class="sig-img">
+                                        <?php endif; ?>
+                                        <div class="sig-line"></div>
+                                        <p class="sig-name"><?php echo !empty($task['client_sign_name']) ? htmlspecialchars(strtoupper($task['client_sign_name'])) : 'CLIENT REPRESENTATIVE'; ?></p>
+                                        <p class="sig-role">Client Signature</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    <?php endif; ?>
+                <?php endforeach; // End of individual submission ?>
+                <?php endforeach; // End of system ?>
             <?php endif; ?>
-
         </div> 
     </body>
     </html>
