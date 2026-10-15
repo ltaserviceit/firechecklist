@@ -292,6 +292,56 @@ ob_start();
             z-index: 1001;
         }
 
+        /* ============ REPEATING REPORT INFORMATION ============ */
+        .repeating-report-info {
+            position: fixed;
+            top: -205px;
+            left: 0;
+            right: 0;
+            height: 180px;
+            z-index: 900;
+            background: #ffffff;
+        }
+
+        .repeating-report-info .report-header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .repeating-report-info .report-header h1 {
+            margin: 0 0 8px 0;
+            font-size: 20px;
+            font-weight: 900;
+            color: #111827;
+        }
+
+        .repeating-report-info .report-header .sys-title {
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .repeating-report-info .report-header .sys-list {
+            font-size: 10px;
+            color: #6b7280;
+        }
+
+        .repeating-report-info .task-meta {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            margin-bottom: 0;
+            background: #f8fafc;
+        }
+
+        .repeating-report-info .task-meta td {
+            padding: 10px 12px;
+            vertical-align: top;
+            width: 50%;
+            font-size: 10px;
+            line-height: 1.5;
+        }
+        
         /* ============ MAIN CONTENT PADDING ============ */
         .content-wrapper {
             padding: 10px 0 0 0;
