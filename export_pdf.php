@@ -972,6 +972,11 @@ ob_start();
                             </tr>
                         </table>
                     <?php endif; ?>
+                    <!-- Page break after each inspection, except the last -->
+                    <?php $current_inspection++; ?>
+                    <?php if ($current_inspection < $total_inspections): ?>
+                        <div class="inspection-page-break"></div>
+                    <?php endif; ?>
                 <?php endforeach; // End of individual submission ?>
                 <?php endforeach; // End of system ?>
             <?php endif; ?>
