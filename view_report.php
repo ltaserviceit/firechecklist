@@ -324,7 +324,7 @@ function format_remark_with_image($remark_string) {
                 <label style="display:block; margin:12px 0;">
                     <input type="checkbox"
                         name="selected_systems[]"
-                        form="report-info-form"
+                        form="pdf-selection-form"
                         value="<?= htmlspecialchars($table, ENT_QUOTES, 'UTF-8') ?>"
                         checked>
                     <?= htmlspecialchars($system_name) ?>
