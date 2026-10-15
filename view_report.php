@@ -159,7 +159,7 @@ function format_remark_with_image($remark_string) {
         .section-edit-bar { display: flex; justify-content: flex-end; margin: 0 0 8px; scroll-margin-top: 20px; }
         .btn-edit-section { background: var(--surface); color: var(--primary); border: 1.5px solid var(--primary); border-radius: 6px; padding: 6px 14px; font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer; }
         .btn-edit-section:hover { background: var(--primary); color: #fff; }
-        .sec-dialog { border: none; border-radius: 12px; padding: 24px; width: min(1100px, 95vw); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+        .sec-dialog { border: none; border-radius: 12px; padding: 24px; width: min(1100px, 95vw); max-height: 90vh; margin: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
         .sec-dialog::backdrop { background: rgba(0,0,0,0.45); }
         .sec-dialog-title { font-size: 16px; text-transform: uppercase; margin-bottom: 16px; color: var(--text-main); }
         .sec-dialog-scroll { max-height: 60vh; overflow: auto; border: 1px solid var(--border); border-radius: 8px; }
