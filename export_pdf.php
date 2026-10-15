@@ -76,8 +76,32 @@ $system_tables = [
     'pressurised_hydrant_system' => 'Pressurised Hydrant System'
 ];
 
+$selected_systems = $_POST['selected_systems'] ?? [];
+
+if (!is_array($selected_systems)) {
+    http_response_code(400);
+    exit('Invalid system selection.');
+}
+
+// Only allow systems defined by this application.
+$selected_systems = array_values(
+    array_intersect(
+        array_keys($system_tables),
+        $selected_systems
+    )
+);
+
+if (empty($selected_systems)) {
+    http_response_code(400);
+    exit('Please select at least one system.');
+}
+
 $report_data = [];
 foreach ($system_tables as $table => $system_name) {
+    // Skip systems not selected by the admin
+    if (!in_array($table, $selected_systems, true)) {
+        continue;
+    }
     $query = "SELECT * FROM `$table` WHERE task_id = $task_id ORDER BY id ASC";
     $result = @$conn->query($query);
     if ($result && $result->num_rows > 0) {
