@@ -747,8 +747,7 @@ ob_start();
                                     </tbody>
                                 </table>
                             <?php endif; ?>
-                            
-                        <?php endforeach; ?>// End of sections ?>
+                        <?php endforeach; ?>
 
                         <?php if (!empty($task['tech_signature']) || !empty($task['client_signature'])): ?>
                         <table class="signatures">
