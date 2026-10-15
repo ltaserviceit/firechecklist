@@ -178,7 +178,7 @@ ob_start();
     <style>
         /* Force zero margins on the page to allow edge-to-edge bleeding */
         @page {
-            margin: 135px 40px 40px 40px;
+            margin: 325px 40px 40px 40px;
         }
 
         body {
