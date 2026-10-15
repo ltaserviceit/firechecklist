@@ -989,6 +989,32 @@ ob_start();
     $dompdf->setPaper('A4', 'portrait');
     $dompdf->render();
 
+    /* ============ PAGE NUMBER FOOTER ============ */
+    $canvas = $dompdf->getCanvas();
+
+    $fontMetrics = $dompdf->getFontMetrics();
+    $font = $fontMetrics->getFont('Helvetica', 'normal');
+
+    $pageWidth = $canvas->get_width();
+    $pageHeight = $canvas->get_height();
+
+    $fontSize = 9;
+
+    // Text position: bottom right
+    $x = $pageWidth - 110;
+    $y = $pageHeight - 25;
+
+    // Automatically display Page X of Y
+    $canvas->page_text(
+        $x,
+        $y,
+        "Page {PAGE_NUM} of {PAGE_COUNT}",
+        $font,
+        $fontSize,
+        [0.4, 0.4, 0.4]
+    );
+
+    /* ============ OUTPUT PDF ============ */
     $filename = "Service_Report_Task_" . $task_id . ".pdf";
     $dompdf->stream($filename, ["Attachment" => false]);
     exit();
