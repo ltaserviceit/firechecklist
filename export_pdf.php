@@ -222,7 +222,7 @@ ob_start();
         /* ============ LTA RED BANNER LETTERHEAD ============ */
         .letterhead-container {
             position: fixed;
-            top: -135px;
+            top: -325px;
             left: -40px;
             right: -40px;
             height: 115px;
@@ -284,7 +284,7 @@ ob_start();
 
         .lh-trim-line {
             position: fixed;
-            top: -20px;
+            top: -210px;
             left: -40px;
             right: -40px;
             height: 4px;
