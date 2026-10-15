@@ -1,6 +1,7 @@
 <?php
 session_start();
 require 'db.php';
+require 'report_info.php';
 
 // 1. Security Check: Only Admin can view reports
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
