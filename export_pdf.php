@@ -1,6 +1,7 @@
 <?php
 session_start();
 require 'db.php';
+require 'report_info.php';
 require_once 'dompdf/autoload.inc.php';
 
 use Dompdf\Dompdf;
