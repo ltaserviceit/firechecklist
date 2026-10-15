@@ -275,6 +275,8 @@ ob_start();
             width: 100%;
             border-collapse: collapse;
             border: none;
+            position: relative;
+            top: 12px;
         }
 
         .letterhead-table td {
@@ -287,13 +289,13 @@ ob_start();
             width: 22%;
             text-align: center;
             background-color: #B00E16;
-            padding: 22px 20px 2px 20px;
+            padding: 12px 20px;
             vertical-align: middle;
         }
 
         .lh-text-cell {
             width: 78%;
-            padding: 22px 30px 2px 30px;
+            padding: 12px 30px;
             vertical-align: middle;
         }
 
