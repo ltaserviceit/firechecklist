@@ -224,6 +224,7 @@ ob_start();
             color: #111827;
             margin: 0;
             padding: 0;
+            text-transform: uppercase;
         }
 
         /* ============ WATERMARKS ============ */
