@@ -535,10 +535,13 @@ ob_start();
             letter-spacing: 0.5px;
         }
 
-        /* ============ NEW: PAGE BREAK AFTER EACH INSPECTION ============ */
+        /* ============ PAGE BREAK AFTER EACH INSPECTION ============ */
         .inspection-page-break {
             page-break-after: always;
             break-after: page;
+            height: 0;
+            margin: 0;
+            padding: 0;
         }
 
     </style>
