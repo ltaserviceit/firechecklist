@@ -246,23 +246,65 @@ function format_remark_with_image($remark_string) {
 </head>
 <body>
     <div class="controls">
+
+        <!-- Back to Dashboard -->
         <a href="admin_dashboard.php" class="btn btn-back">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            <svg viewBox="0 0 24 24" width="18" height="18"
+                fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
             Back to Dashboard
         </a>
 
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <button type="submit" form="report-info-form" name="action" value="save" class="btn btn-back">
+
+            <!-- Save Changes -->
+            <button type="submit"
+                    form="report-info-form"
+                    name="action"
+                    value="save"
+                    class="btn btn-back">
                 Save Changes
             </button>
-            <button type="submit" form="report-info-form" name="action" value="reset" class="btn btn-back"
+
+            <!-- Reset to Original -->
+            <button type="submit"
+                    form="report-info-form"
+                    name="action"
+                    value="reset"
+                    class="btn btn-back"
                     onclick="return confirm('Discard all edits and restore the original details?');">
                 Reset to Original
             </button>
-            <button type="submit" form="report-info-form" name="action" value="download" formtarget="_blank" class="btn btn-print">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+
+            <!-- NEW: Select Systems -->
+            <button type="button"
+                    class="btn btn-back"
+                    onclick="toggleSystemSelection()">
+                Select Systems
+            </button>
+
+            <!-- Save & Download Official PDF -->
+            <button type="submit"
+                    form="report-info-form"
+                    name="action"
+                    value="download"
+                    formtarget="_blank"
+                    class="btn btn-print">
+
+                <svg viewBox="0 0 24 24" width="18" height="18"
+                    fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                    <rect x="6" y="14" width="12" height="8"></rect>
+                </svg>
+
                 Save &amp; Download Official PDF
             </button>
+
         </div>
     </div>
 
