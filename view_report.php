@@ -2,6 +2,7 @@
 session_start();
 require 'db.php';
 require 'report_info.php';
+require 'section_editor.php';
 
 // 1. Security Check: Only Admin can view reports
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
@@ -155,6 +156,17 @@ function format_remark_with_image($remark_string) {
 
         .info-input { flex: 1; padding: 8px 10px; border: 1.5px solid var(--border); border-radius: 6px; font-size: 15px; font-family: inherit; background: #fff; color: var(--text-main); min-width: 0; }
         .info-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(196,30,58,0.08); }
+        .section-edit-bar { display: flex; justify-content: flex-end; margin: 0 0 8px; scroll-margin-top: 20px; }
+        .btn-edit-section { background: var(--surface); color: var(--primary); border: 1.5px solid var(--primary); border-radius: 6px; padding: 6px 14px; font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer; }
+        .btn-edit-section:hover { background: var(--primary); color: #fff; }
+        .sec-dialog { border: none; border-radius: 12px; padding: 24px; width: min(1100px, 95vw); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+        .sec-dialog::backdrop { background: rgba(0,0,0,0.45); }
+        .sec-dialog-title { font-size: 16px; text-transform: uppercase; margin-bottom: 16px; color: var(--text-main); }
+        .sec-dialog-scroll { max-height: 60vh; overflow: auto; border: 1px solid var(--border); border-radius: 8px; }
+        .sec-dialog table { min-width: 0; }
+        .sec-dialog input[type="text"], .sec-dialog select { width: 100%; padding: 8px; border: 1.5px solid var(--border); border-radius: 6px; font-size: 13px; font-family: inherit; }
+        .sec-dialog-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 16px; }
+        @media print { .section-edit-bar, .sec-dialog { display: none !important; } }
         @media print { .info-input { border: none; padding: 0; background: transparent; } }
 
         /* SYSTEM SEPARATOR */
@@ -273,6 +285,8 @@ function format_remark_with_image($remark_string) {
 
         <?php if (isset($_GET['saved'])): ?>
             <div style="background:#ecfdf5;color:#059669;padding:12px 16px;border-radius:8px;margin-bottom:20px;font-weight:600;">&#10003; Report details saved.</div>
+        <?php elseif (isset($_GET['section_saved'])): ?>
+            <div style="background:#ecfdf5;color:#059669;padding:12px 16px;border-radius:8px;margin-bottom:20px;font-weight:600;">&#10003; Section updated.</div>
         <?php elseif (isset($_GET['reset'])): ?>
             <div style="background:#fffbeb;color:#d97706;padding:12px 16px;border-radius:8px;margin-bottom:20px;font-weight:600;">Report details restored to original.</div>
         <?php endif; ?>
@@ -333,7 +347,7 @@ function format_remark_with_image($remark_string) {
 
                     <?php foreach ($sections as $section_name => $items_keyed): ?>
                         <?php $rows = array_values($items_keyed); ?>
-                        
+                        <?php render_section_editor($task_id, $table, $system_name, $section_name, $rows, "sec-$table-$sub_idx-" . md5($section_name)); ?>
                         <?php if ($section_name === 'PANEL PROFILE'): ?>
                             
                             <?php if (strpos($table, 'riser') !== false): ?>
