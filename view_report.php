@@ -756,7 +756,18 @@ function format_remark_with_image($remark_string) {
             </div>
         </div>
         <?php endif; ?>
-
     </div>
+    
+    <script>
+    function toggleSystemSelection() {
+        const panel = document.getElementById('systemSelectionPanel');
+
+        if (panel.style.display === 'none') {
+            panel.style.display = 'block';
+        } else {
+            panel.style.display = 'none';
+        }
+    }
+    </script>
 </body>
 </html>
