@@ -267,19 +267,36 @@ function format_remark_with_image($remark_string) {
             </div>
         </div>
 
-        <div class="task-details">
-            <div>
-                <p><strong>Task ID</strong> #<?= str_pad($task['task_id'], 5, '0', STR_PAD_LEFT) ?></p>
-                <p><strong>Company Name</strong> <?= htmlspecialchars($task['company_name'] ?? 'N/A') ?></p>
-                <p><strong>Building Name</strong> <?= htmlspecialchars($task['building_name'] ?? 'N/A') ?></p>
+        <?php if (isset($_GET['saved'])): ?>
+            <div style="background:#ecfdf5;color:#059669;padding:12px 16px;border-radius:8px;margin-bottom:20px;font-weight:600;">&#10003; Report details saved.</div>
+        <?php elseif (isset($_GET['reset'])): ?>
+            <div style="background:#fffbeb;color:#d97706;padding:12px 16px;border-radius:8px;margin-bottom:20px;font-weight:600;">Report details restored to original.</div>
+        <?php endif; ?>
+
+        <form id="report-info-form" method="POST" action="save_report_info.php">
+            <input type="hidden" name="task_id" value="<?= $task_id ?>">
+
+            <div class="task-details">
+                <div>
+                    <p><strong>Task ID</strong>
+                        <input class="info-input" type="text" name="info[task_id]" maxlength="150" value="<?= htmlspecialchars($info['task_id']) ?>"></p>
+                    <p><strong>Company Name</strong>
+                        <input class="info-input" type="text" name="info[company_name]" maxlength="150" value="<?= htmlspecialchars($info['company_name']) ?>"></p>
+                    <p><strong>Building Name</strong>
+                        <input class="info-input" type="text" name="info[building_name]" maxlength="150" value="<?= htmlspecialchars($info['building_name']) ?>"></p>
+                </div>
+                <div>
+                    <p><strong>Date Created</strong>
+                        <input class="info-input" type="text" name="info[date_created]" maxlength="150" value="<?= htmlspecialchars($info['date_created']) ?>"></p>
+                    <p><strong>Status</strong>
+                        <input class="info-input" type="text" name="info[status]" maxlength="150" value="<?= htmlspecialchars($info['status']) ?>"></p>
+                    <p><strong>Inspected By</strong>
+                        <input class="info-input" type="text" name="info[inspected_by]" maxlength="150" value="<?= htmlspecialchars($info['inspected_by']) ?>"></p>
+                    <p><strong>Date Inspected</strong>
+                        <input class="info-input" type="text" name="info[inspection_date]" maxlength="150" value="<?= htmlspecialchars($info['inspection_date']) ?>"></p>
+                </div>
             </div>
-            <div>
-                <p><strong>Date Created</strong> <?= date('d M Y, h:i A', strtotime($task['created_at'])) ?></p>
-                <p><strong>Status</strong> <?= htmlspecialchars($task['status']) ?></p>
-                <p><strong>Inspected By</strong> Technician (ID: <?= htmlspecialchars($task['tech_id'] ?? 'Unknown') ?>)</p>
-                <p><strong>Date Inspected</strong><?= !empty($task['inspection_date'])? date('d M Y, h:i A', strtotime($task['inspection_date'])): 'N/A' ?></p>
-            </div>
-        </div>
+        </form>
 
         <?php if (empty($report_data)): ?>
             <div style="text-align:center; padding: 60px 20px; border: 2px dashed var(--border); border-radius: 12px; color: var(--text-muted); background: var(--row-alt);">
