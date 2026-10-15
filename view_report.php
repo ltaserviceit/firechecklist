@@ -82,13 +82,13 @@ function format_check($chk) {
 }
 
 // Helper to highlight Faulty conditions
-function format_condition_pdf($cond) {
+function format_condition($cond) {
     if (empty($cond) || $cond === '-') return '-';
     $cond = strtoupper(trim((string)$cond));
     if ($cond === 'FAULTY') {
         return '<span style="color: #dc2626; font-weight: bold;">FAULTY</span>';
     }
-    return htmlspecialchars($cond);
+    return htmlspecialchars($cond, ENT_QUOTES, 'UTF-8');
 }
 
 
