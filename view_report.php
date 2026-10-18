@@ -778,6 +778,24 @@ function format_remark_with_image($remark_string) {
             panel.style.display = 'none';
         }
     }
+
+    function addSystemsToReport() {
+        const checkboxes = document.querySelectorAll(
+            'input[name="selected_systems[]"]:checked'
+        );
+        const selectedSystems = Array.from(checkboxes).map(
+            checkbox => checkbox.value
+        );
+        if (selectedSystems.length === 0) {
+            alert("Please select at least one fire protection system.");
+            return;
+        }
+        console.log("Selected systems:", selectedSystems);
+        alert(
+            "Selected systems:\n\n" +
+            selectedSystems.join("\n")
+        );
+    }
     </script>
 </body>
 </html>
