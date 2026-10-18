@@ -341,10 +341,11 @@ function format_remark_with_image($remark_string) {
             <?php endif; ?>
         <?php endforeach; ?>
         <div style="margin-top:20px;">
-            <button type="button"
-                    class="btn btn-back"
-                    onclick="toggleSystemSelection()">
+            <button type="button" class="btn btn-back" onclick="toggleSystemSelection()">
                 Done Selecting
+            </button>
+            <button type="button" class="btn btn-print" onclick="addSystemsToReport()">
+                + Add System to Report
             </button>
         </div>
     </div>
