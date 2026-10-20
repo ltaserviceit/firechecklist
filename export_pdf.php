@@ -333,6 +333,10 @@ ob_start();
             z-index: 1001;
         }
 
+        .lh-lowercase {
+            text-transform: none !important;
+        }
+
         /* ============ REPEATING REPORT INFORMATION ============ */
         .repeating-report-info {
             position: fixed;
