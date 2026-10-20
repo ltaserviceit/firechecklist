@@ -57,6 +57,25 @@ foreach ($system_forms as $table => $name) {
         }
     }
 }
+
+$stmt = $conn->prepare("
+    SELECT c.company_name
+    FROM tasks t
+    LEFT JOIN company_details c
+        ON t.company_id = c.company_id
+    WHERE t.id = ?
+    LIMIT 1
+");
+
+$stmt->bind_param("i", $task_id);
+$stmt->execute();
+
+$result = $stmt->get_result();
+$company = $result->fetch_assoc();
+
+$client_company = $company['company_name'] ?? '';
+
+$stmt->close();
 ?>
 
 <!DOCTYPE html>
