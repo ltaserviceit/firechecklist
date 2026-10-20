@@ -292,10 +292,10 @@ ob_start();
             padding: 5px 8px;
             vertical-align: middle;
         }
-
+        
         .lh-text-cell {
-            width: 78%;
-            padding: 12px 30px;
+            width: 73%;
+            padding: 12px 15px;
             vertical-align: middle;
         }
 
