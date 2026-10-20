@@ -292,7 +292,7 @@ ob_start();
             padding: 5px 8px;
             vertical-align: middle;
         }
-        
+
         .lh-text-cell {
             width: 73%;
             padding: 12px 15px;
@@ -1020,9 +1020,31 @@ ob_start();
                         </table>
                     <?php endif; ?>
                     <!-- Page break after each inspection, except the last -->
-                    <?php $current_inspection++; ?>
-                    <?php if ($current_inspection < $total_inspections): ?>
-                        <div class="inspection-page-break"></div>
+                    <?php if (!empty($task['tech_signature'])): ?>
+                        <table class="signatures">
+                            <tr>
+                                <td style="width: 100%; text-align: center;">
+                                    <div class="sig-box">
+                                        <img
+                                            src="<?= htmlspecialchars($task['tech_signature'], ENT_QUOTES, 'UTF-8') ?>"
+                                            class="sig-img"
+                                            alt="Technician Signature"
+                                        >
+                                        <div class="sig-line"></div>
+                                        <p class="sig-name">
+                                            <?= !empty($task['tech_sign_name'])
+                                                ? htmlspecialchars(strtoupper($task['tech_sign_name']))
+                                                : 'TECHNICIAN'; ?>
+                                        </p>
+                                        <p class="sig-role"
+                                        style="font-weight: bold; color: #111827; margin-bottom: 4px;">
+                                            LTA SERVICES SDN. BHD.
+                                        </p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
                     <?php endif; ?>
                 <?php endforeach; // End of individual submission ?>
                 <?php endforeach; // End of system ?>
