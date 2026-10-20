@@ -300,8 +300,11 @@ ob_start();
         }
 
         .lh-logo {
-            max-width: 130px;
-            max-height: 75px;
+            width: 160px;
+            max-width: 100%;
+            max-height: 95px;
+            height: auto;
+            object-fit: contain;
         }
 
         .lh-title {
