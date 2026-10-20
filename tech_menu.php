@@ -539,8 +539,13 @@ foreach ($system_forms as $table => $name) {
                 <input type="hidden" name="client_signature" id="client_signature">
 
                 <div class="sign-group">
-                    <label>Technician's Full Name</label>
-                    <input type="text" name="tech_sign_name" required placeholder="Enter your name" oninput="this.value = this.value.toUpperCase()">
+                    <label for="tech_sign_name">Technician's Full Name</label>
+                    <select name="tech_sign_name" id="tech_sign_name" required> 
+                        <option value="" disabled selected> -- SELECT TECHNICIAN --</option>
+                        <option value="JAFREE ANAK MITA">JAFREE ANAK MITA</option>
+                        <option value="MUHAMMAD FIRDAUS ABDULLAH">MUHAMMAD FIRDAUS ABDULLAH</option>
+                        <option value="JAMES FRANKIE">JAMES FRANKIE</option>
+                    </select>
                     
                     <label>Technician's Company</label>
                     <input type="text" name="tech_company" required value="LTA SERVICES" oninput="this.value = this.value.toUpperCase()">
