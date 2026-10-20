@@ -336,6 +336,24 @@ foreach ($system_forms as $table => $name) {
             cursor: pointer; transition: all 0.2s;
         }
         .btn-submit-modal:hover { background: var(--primary-hover); transform: translateY(-1px); }
+
+        .sign-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dce1e7;
+            border-radius: 6px;
+            background-color: #ffffff;
+            font-size: 13px;
+            color: #111827;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+
+        .sign-group select:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
         
         @media (max-width: 600px) {
             .status-strip { flex-direction: column; align-items: flex-start; }
