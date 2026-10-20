@@ -566,7 +566,7 @@ foreach ($system_forms as $table => $name) {
                     </select>
                     
                     <label>Technician's Company</label>
-                    <input type="text" name="tech_company" required value="LTA SERVICES" oninput="this.value = this.value.toUpperCase()">
+                    <input type="text" name="tech_company" required value="LTA SERVICES SDN BHD" readonly style="background-color: #f3f4f6; cursor: not-allowed;">
 
                     <label>Technician's Signature</label>
                     <canvas id="techPad" class="sig-pad"></canvas>
