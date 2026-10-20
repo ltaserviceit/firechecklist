@@ -595,10 +595,16 @@ $stmt->close();
                 <div class="sign-group">
                     <label>Client / Representative's Full Name</label>
                     <input type="text" name="client_sign_name" required placeholder="Enter client's name" oninput="this.value = this.value.toUpperCase()">
-                    
                     <label>Client's Signature</label>
                     <canvas id="clientPad" class="sig-pad"></canvas>
-                    <button type="button" class="clear-btn" onclick="clearCanvas('clientPad')">Clear Signature</button>
+
+                    <button type="button" class="clear-btn" onclick="clearCanvas('clientPad')">
+                        Clear Signature
+                    </button>
+
+                    <!-- CLIENT'S COMPANY FROM DATABASE -->
+                    <label for="client_company">Client's Company</label>
+                    <input type="text" name="client_company" id="client_company" value="<?= htmlspecialchars(strtoupper($client_company), ENT_QUOTES, 'UTF-8') ?>" readonly style="background-color: #f3f4f6; cursor: not-allowed;">
                 </div>
 
                 <button type="button" onclick="submitSignatures()" class="btn-submit-modal">Submit & Complete Job</button>
