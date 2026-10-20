@@ -619,8 +619,8 @@ ob_start();
                     <div class="lh-details">
                         2<sup>nd</sup> Floor, SL113, Plot 24, Gala City, Jalan Tun Jugah, 93350 Kuching, Sarawak.<br>
                         Tel: 082-265761<br>
-                        Email: lta.firemaintenance@gmail.com<br>
-                        Website: www.ltaservicessdnbhd.com
+                        Email: <span class="lh-lowercase">lta.firemaintenance@gmail.com</span><br>
+                        Website: <span class="lh-lowercase">www.ltaservicessdnbhd.com</span>
                     </div>
                 </td>
             </tr>
