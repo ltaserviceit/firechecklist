@@ -286,10 +286,10 @@ ob_start();
         }
 
         .lh-logo-cell {
-            width: 22%;
+            width: 27%;
             text-align: center;
             background-color: #B00E16;
-            padding: 12px 20px;
+            padding: 5px 8px;
             vertical-align: middle;
         }
 
