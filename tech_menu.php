@@ -44,6 +44,9 @@ if ($result->num_rows == 0) {
 
 $task = $result->fetch_assoc();
 
+// Retrieve client's company from the current task
+$client_company = $task['company_name'] ?? '';
+
 // 4. Count total submitted checklists for the badge
 $submitted_count = 0;
 foreach ($system_forms as $table => $name) {
@@ -57,25 +60,6 @@ foreach ($system_forms as $table => $name) {
         }
     }
 }
-
-$stmt = $conn->prepare("
-    SELECT c.company_name
-    FROM tasks t
-    LEFT JOIN company_details c
-        ON t.company_id = c.company_id
-    WHERE t.id = ?
-    LIMIT 1
-");
-
-$stmt->bind_param("i", $task_id);
-$stmt->execute();
-
-$result = $stmt->get_result();
-$company = $result->fetch_assoc();
-
-$client_company = $company['company_name'] ?? '';
-
-$stmt->close();
 ?>
 
 <!DOCTYPE html>
