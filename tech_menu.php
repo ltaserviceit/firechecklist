@@ -332,7 +332,14 @@ foreach ($system_forms as $table => $name) {
             font-weight: 700; transition: all 0.2s;
         }
         .clear-btn:hover { background: #f1f5f9; }
-        
+
+        /* Spacing between Clear Signature and Client's Company */
+        .client-clear-btn {
+            display: inline-block;
+            margin-top: 12px;
+            margin-bottom: 35px;
+        }
+
         .btn-submit-modal { 
             width: 100%; background: var(--primary); color: white; padding: 16px; 
             border: none; font-size: 16px; font-weight: 800; border-radius: 8px; 
