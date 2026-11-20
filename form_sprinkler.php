@@ -2,7 +2,7 @@
 session_start();
 require 'db.php';
 
-// ── Inline shared helpers ──────────────────────────────────────────────────
+// ?? Inline shared helpers ??????????????????????????????????????????????????
 function handle_image_upload($input_name, $idx1, $idx2 = null) {
     if (!isset($_FILES[$input_name])) return "";
     $file = $_FILES[$input_name];
@@ -154,7 +154,7 @@ function render_form_header($title) {
             font-size: 20px; color: transparent; background: var(--surface); 
             transition: all 0.2s; font-weight: 900; box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
         }
-        .chk-wrap label::after { content: "✓"; }
+        .chk-wrap label::after { content: "?"; }
         .chk-wrap input[type="checkbox"]:checked + label { background: var(--success); border-color: var(--success); color: white; box-shadow: 0 4px 8px rgba(16, 185, 129, 0.25); }
 
         /* ============ SAVE BAR ============ */
@@ -254,7 +254,7 @@ $table_name = "fire_sprinkler_system";
 $task_id = isset($_GET['task_id']) ? intval($_GET['task_id']) : 0;
 
 $pump_info = ["1"=>"FIRE PUMP LOCATION","2"=>"FIRE PUMP TYPE","3"=>"WORKING PRESSURE","4"=>"WATER TANK SIZE AND CAPACITY (GALLON)",];
-$pressure_items = ["1"=>"CUT IN (PSI)","2"=>"CUT OUT (PSI)","3"=>"SUCTION VALVE (STATUS)","4"=>"DISCHARGE VALVE (STATUS)",];
+$pressure_items = ["1"=>"CUT IN (PSI/BAR)","2"=>"CUT OUT (PSI/BAR)","3"=>"SUCTION VALVE (STATUS)","4"=>"DISCHARGE VALVE (STATUS)",];
 $panel_items = [
     "1"=>"CONTROL PANEL","2"=>"DUTY AND STANDBY PUMP","3"=>"SEALED LEAD ACID BATTERY",
     "4"=>"CONTROL PANEL AND PUMP INCOMING SUPPLY DELIVERING 415V AC","5"=>"FUSES, LED LIGHT BULB, SWITCHES & BUTTONS",

@@ -2,7 +2,7 @@
 session_start();
 require 'db.php';
 
-// ── Inline shared helpers ──────────────────────────────────────────────────
+// ?? Inline shared helpers ??????????????????????????????????????????????????
 function handle_image_upload($input_name, $idx1, $idx2 = null) {
     if (!isset($_FILES[$input_name])) return "";
     $file = $_FILES[$input_name];
@@ -132,7 +132,7 @@ function render_form_header($title) {
             font-size: 20px; color: transparent; background: var(--surface); 
             transition: all 0.2s; font-weight: 900; box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
         }
-        .chk-wrap label::after { content: "✓"; }
+        .chk-wrap label::after { content: "?"; }
         .chk-wrap input[type="checkbox"]:checked + label { background: var(--success); border-color: var(--success); color: white; box-shadow: 0 4px 8px rgba(16, 185, 129, 0.25); }
 
         /* ============ SAVE BAR ============ */
@@ -263,8 +263,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // 1b. Pump Info - Cut In / Cut Out (Duty & Standby)
     foreach ([
-        '8 a)' => ['CUT IN (PSI)', 'pump_cutin'],
-        '8 b)' => ['CUT OUT (PSI)', 'pump_cutout'],
+        '8 a)' => ['CUT IN (PSI/BAR)', 'pump_cutin'],
+        '8 b)' => ['CUT OUT (PSI/BAR)', 'pump_cutout'],
     ] as $bil => $info) {
         [$desc_text, $prefix] = $info;
         $desc = $conn->real_escape_string($desc_text);
@@ -391,16 +391,16 @@ render_form_header("FIRE HOSE REEL SYSTEM - Checklist");
         <?php endforeach; ?>
         <tr>
             <td data-label="BIL" class="center bold">8 a)</td>
-            <td data-label="DESCRIPTION" class="bold">CUT IN (PSI)</td>
+            <td data-label="DESCRIPTION" class="bold">CUT IN (PSI/BAR)</td>
             <td data-label="STATUS">
                 <div style="display:flex; gap:8px;">
                     <div style="width:50%;">
                         <label style="display:block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); margin-bottom:4px;">Duty</label>
-                        <input type="text" name="pump_cutin[duty]" placeholder="PSI">
+                        <input type="text" name="pump_cutin[duty]">
                     </div>
                     <div style="width:50%;">
                         <label style="display:block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); margin-bottom:4px;">Standby</label>
-                        <input type="text" name="pump_cutin[standby]" placeholder="PSI">
+                        <input type="text" name="pump_cutin[standby]">
                     </div>
                 </div>
             </td>
@@ -416,16 +416,16 @@ render_form_header("FIRE HOSE REEL SYSTEM - Checklist");
         </tr>
         <tr>
             <td data-label="BIL" class="center bold">8 b)</td>
-            <td data-label="DESCRIPTION" class="bold">CUT OUT (PSI)</td>
+            <td data-label="DESCRIPTION" class="bold">CUT OUT (PSI/BAR)</td>
             <td data-label="STATUS">
                 <div style="display:flex; gap:8px;">
                     <div style="width:50%;">
                         <label style="display:block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); margin-bottom:4px;">Duty</label>
-                        <input type="text" name="pump_cutout[duty]" placeholder="PSI">
+                        <input type="text" name="pump_cutout[duty]">
                     </div>
                     <div style="width:50%;">
                         <label style="display:block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); margin-bottom:4px;">Standby</label>
-                        <input type="text" name="pump_cutout[standby]" placeholder="PSI">
+                        <input type="text" name="pump_cutout[standby]">
                     </div>
                 </div>
             </td>

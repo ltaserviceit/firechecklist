@@ -163,6 +163,9 @@ function format_remark_with_image($remark_string) {
         .section-edit-bar { display: flex; justify-content: flex-end; margin: 0 0 8px; scroll-margin-top: 20px; }
         .btn-edit-section { background: var(--surface); color: var(--primary); border: 1.5px solid var(--primary); border-radius: 6px; padding: 6px 14px; font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer; }
         .btn-edit-section:hover { background: var(--primary); color: #fff; }
+        .btn-remove-sub { background: var(--danger-bg); color: var(--danger-text); border: 1.5px solid #fca5a5; border-radius: 6px; padding: 6px 14px; font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer; text-transform: none; letter-spacing: 0; }
+.btn-remove-sub:hover { background: var(--danger-text); color: #fff; }
+@media print { .no-print { display: none !important; } }
         .sec-dialog { border: none; border-radius: 12px; padding: 24px; width: min(1100px, 95vw); max-height: 90vh; margin: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
         .sec-dialog::backdrop { background: rgba(0,0,0,0.45); }
         .sec-dialog-title { font-size: 16px; text-transform: uppercase; margin-bottom: 16px; color: var(--text-main); }
@@ -369,6 +372,8 @@ function format_remark_with_image($remark_string) {
             <div style="background:#ecfdf5;color:#059669;padding:12px 16px;border-radius:8px;margin-bottom:20px;font-weight:600;">&#10003; Report details saved.</div>
         <?php elseif (isset($_GET['section_saved'])): ?>
             <div style="background:#ecfdf5;color:#059669;padding:12px 16px;border-radius:8px;margin-bottom:20px;font-weight:600;">&#10003; Section updated.</div>
+        <?php elseif (isset($_GET['removed'])): ?>
+    <div style="background:#ecfdf5;color:#059669;padding:12px 16px;border-radius:8px;margin-bottom:20px;font-weight:600;">&#10003; Submission removed.</div>
         <?php elseif (isset($_GET['reset'])): ?>
             <div style="background:#fffbeb;color:#d97706;padding:12px 16px;border-radius:8px;margin-bottom:20px;font-weight:600;">Report details restored to original.</div>
         <?php endif; ?>
@@ -425,7 +430,25 @@ function format_remark_with_image($remark_string) {
                     }
                 ?>
                     
-                    <div class="system-separator"><?= htmlspecialchars($system_name) ?><?= htmlspecialchars($loc_label) ?></div>
+                    <?php
+    $sub_ids = [];
+    foreach ($sections as $items) {
+        foreach ($items as $r) { $sub_ids[] = (int)$r['id']; }
+    }
+?>
+<div class="system-separator" style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">
+    <span><?= htmlspecialchars($system_name) ?><?= htmlspecialchars($loc_label) ?></span>
+
+    <?php if (count($table_data['submissions']) > 1): ?>
+    <form method="POST" action="delete_submission.php" class="no-print" style="margin:0;"
+          onsubmit="return confirm('Remove this entire submission (<?= count($sub_ids) ?> rows)? This cannot be undone.');">
+        <input type="hidden" name="task_id" value="<?= (int)$task_id ?>">
+        <input type="hidden" name="table" value="<?= htmlspecialchars($table, ENT_QUOTES, 'UTF-8') ?>">
+        <input type="hidden" name="ids" value="<?= implode(',', $sub_ids) ?>">
+        <button type="submit" class="btn-remove-sub">Remove this submission</button>
+    </form>
+    <?php endif; ?>
+</div>
 
                     <?php foreach ($sections as $section_name => $items_keyed): ?>
                         <?php $rows = array_values($items_keyed); ?>
