@@ -122,13 +122,13 @@ foreach ($system_tables as $table => $system_name) {
                     continue;
                 }
                 
-                // Filter items - keep only those with checklist = 'Done' or checklist is empty/null
+                // Filter items - keep only those with checklist = 'Done' or checklist is empty/null.
+                // Faulty items are always kept, even if the checkbox was not ticked.
                 $filtered_items = [];
                 foreach ($items_keyed as $bil => $item) {
                     // Check if this item has a checklist field and if it's N/A
                     if (isset($item['checklist'])) {
-                        // Keep items that are 'Done', empty, or null - filter out 'N/A'
-                        if ($item['checklist'] !== 'N/A') {
+                        if ($item['checklist'] !== 'N/A' || ($item['item_condition'] ?? '') === 'Faulty') {
                             $filtered_items[$bil] = $item;
                         }
                     } else {
@@ -663,17 +663,6 @@ ob_start();
             <?php if (empty($report_data)): ?>
                 <div style="text-align:center; padding: 40px; color: #6b7280; font-style: italic; border: 1px solid #e5e7eb; background: #f9fafb; border-radius: 6px;">No completed checklist items found for this task. All items marked as N/A have been filtered out.</div>
             <?php else: ?>
-                <?php
-                    // Count all individual inspection submissions
-                    $total_inspections = 0;
-
-                    foreach ($report_data as $system_data) {
-                        $total_inspections += count($system_data['submissions']);
-                    }
-
-                    // Start inspection counter
-                    $current_inspection = 0;
-                    ?>
                 <?php foreach ($report_data as $table => $table_data): ?>
                     <?php 
                     $system_name = $table_data['system_name'];
@@ -990,64 +979,44 @@ ob_start();
                                     </tbody>
                                 </table>
                             <?php endif; ?>
-                        <?php endforeach; ?>
-                        <?php if (!empty($task['tech_signature'])): ?>
-                            <!-- TECHNICIAN SIGNATURE ONLY -->
-                            <table class="signatures">
-                                <tr>
-                                    <td style="width: 100%; text-align: center;">
-                                        <div class="sig-box">
-                                            <!-- Technician Signature Image -->
-                                            <img
-                                                src="<?= htmlspecialchars($task['tech_signature'], ENT_QUOTES, 'UTF-8') ?>"
-                                                class="sig-img"
-                                            >
-                                            <div class="sig-line"></div>
-                                            <!-- Technician Full Name -->
-                                            <p class="sig-name">
-                                                <?= !empty($task['tech_sign_name'])
-                                                    ? htmlspecialchars(strtoupper($task['tech_sign_name']))
-                                                    : 'TECHNICIAN'; ?>
-                                            </p>
-                                            <!-- Technician Company -->
-                                            <p class="sig-role"
-                                            style="font-weight: bold; color: #111827;">
-                                                LTA SERVICES SDN. BHD.
-                                            </p>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        <?php endif; ?>
-                    <!-- Page break after each inspection, except the last -->
-                    <?php if (!empty($task['tech_signature'])): ?>
-                        <table class="signatures">
-                            <tr>
-                                <td style="width: 100%; text-align: center;">
-                                    <div class="sig-box">
-                                        <img
-                                            src="<?= htmlspecialchars($task['tech_signature'], ENT_QUOTES, 'UTF-8') ?>"
-                                            class="sig-img"
-                                            alt="Technician Signature"
-                                        >
-                                        <div class="sig-line"></div>
-                                        <p class="sig-name">
-                                            <?= !empty($task['tech_sign_name'])
-                                                ? htmlspecialchars(strtoupper($task['tech_sign_name']))
-                                                : 'TECHNICIAN'; ?>
-                                        </p>
-                                        <p class="sig-role"
-                                        style="font-weight: bold; color: #111827; margin-bottom: 4px;">
-                                            LTA SERVICES SDN. BHD.
-                                        </p>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-
-                    <?php endif; ?>
+                        <?php endforeach; // End of sections ?>
                 <?php endforeach; // End of individual submission ?>
                 <?php endforeach; // End of system ?>
+
+                <!-- SIGNATURES: printed ONCE at the end of the whole report -->
+                <?php
+                    $has_tech   = !empty($task['tech_signature']);
+                    $has_client = !empty($task['client_signature']);
+                ?>
+                <table class="signatures">
+                    <tr>
+                        <td>
+                            <div class="sig-box">
+                                <?php if ($has_tech): ?>
+                                    <img src="<?= htmlspecialchars($task['tech_signature'], ENT_QUOTES, 'UTF-8') ?>" class="sig-img" alt="Technician Signature">
+                                <?php else: ?>
+                                    <div style="height:80px;"></div>
+                                <?php endif; ?>
+                                <div class="sig-line"></div>
+                                <p class="sig-name"><?= !empty($task['tech_sign_name']) ? htmlspecialchars(strtoupper($task['tech_sign_name'])) : 'TECHNICIAN' ?></p>
+                                <p class="sig-role" style="font-weight: bold; color: #111827; margin-bottom: 4px;">LTA SERVICES SDN. BHD.</p>
+                                <p class="sig-role">Technician Signature</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="sig-box">
+                                <?php if ($has_client): ?>
+                                    <img src="<?= htmlspecialchars($task['client_signature'], ENT_QUOTES, 'UTF-8') ?>" class="sig-img" alt="Client Signature">
+                                <?php else: ?>
+                                    <div style="height:80px;"></div>
+                                <?php endif; ?>
+                                <div class="sig-line"></div>
+                                <p class="sig-name"><?= !empty($task['client_sign_name']) ? htmlspecialchars(strtoupper($task['client_sign_name'])) : 'CLIENT REPRESENTATIVE' ?></p>
+                                <p class="sig-role">Client Signature</p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
             <?php endif; ?>
         </div> 
     </body>
